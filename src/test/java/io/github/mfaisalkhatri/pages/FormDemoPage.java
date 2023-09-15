@@ -13,8 +13,8 @@ import java.time.Duration;
 public class FormDemoPage {
 
 
-    private WebDriver driver;
-    private WebDriverWait wait;
+    private final WebDriver driver;
+    private final WebDriverWait wait;
 
     public FormDemoPage(final WebDriver driver) {
         this.driver = driver;
