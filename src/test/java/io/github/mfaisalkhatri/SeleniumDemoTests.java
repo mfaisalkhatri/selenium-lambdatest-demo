@@ -1,6 +1,7 @@
 package io.github.mfaisalkhatri;
 
 import io.github.mfaisalkhatri.pages.FormDemoPage;
+import io.github.mfaisalkhatri.pages.MainPage;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -9,7 +10,11 @@ public class SeleniumDemoTests extends BaseTest {
 
     @Test
     public void testInputForm() {
-        this.driverManager.getDriver().navigate().to("https://www.lambdatest.com/selenium-playground/input-form-demo");
+        this.driverManager.getDriver().navigate().to("https://www.lambdatest.com/selenium-playground/");
+
+        final var mainPage = new MainPage(this.driverManager.getDriver());
+        mainPage.clickOnLink("Input Form Submit");
+
         final var formDemoPage = new FormDemoPage(this.driverManager.getDriver());
         formDemoPage.fillForm("Faisal", "faisal@gmail.com", "Pass@111", "LambdaTest",
                 "https://www.lambdatest.com", "India", "Mumbai",
