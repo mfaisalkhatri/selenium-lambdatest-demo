@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Selenium WebDriver Demo Suite for LambdaTests" parallel="tests">
+    <test name="Selenium Playground - Input Form Demo Test on Chrome">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.SeleniumDemoTests">
+                <methods>
+                    <include name="testInputForm"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Selenium Playground - Input Form Demo Test on Firefox">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.SeleniumDemoTests">
+                <methods>
+                    <include name="testInputForm"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Selenium Playground - Input Form Demo Test on LambdaTest Chrome">
+        <parameter name="browser" value="chrome_cloud"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.SeleniumDemoTests">
+                <methods>
+                    <include name="testInputForm"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>
