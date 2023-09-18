@@ -22,10 +22,10 @@ public class DriverManager {
 
     public void createDriver(final Browsers browser) {
         switch (browser) {
-            case FIREFOX -> setupFirefoxDriver();
+            case FIREFOX -> setupFirefoxInLocal();
             case CHROME_CLOUD -> setupChromeInLambdaTest();
             case FIREFOX_CLOUD -> setupFirefoxInLambdaTest();
-            default -> setupChromeDriver();
+            default -> setupChromeInLocal();
         }
         setupBrowserTimeouts();
     }
@@ -44,7 +44,7 @@ public class DriverManager {
     private HashMap<String, Object> ltOptions() {
         final var ltOptions = new HashMap<String, Object>();
         ltOptions.put("username", LT_USERNAME);
-        ltOptions.put("accessKey", LT_ACCESS_TOKEN);
+        ltOptions.put("accessKey", LT_ACCESS_KEY);
         ltOptions.put("resolution", "2560x1440");
         ltOptions.put("selenium_version", "4.0.0");
         ltOptions.put("build", "LambdaTest Scale Demo");
@@ -65,7 +65,7 @@ public class DriverManager {
                 .implicitlyWait(Duration.ofSeconds(20));
     }
 
-    private void setupChromeDriver() {
+    private void setupChromeInLocal() {
         setDriver(new ChromeDriver());
     }
 
@@ -95,7 +95,7 @@ public class DriverManager {
         }
     }
 
-    private void setupFirefoxDriver() {
+    private void setupFirefoxInLocal() {
         setDriver(new FirefoxDriver());
     }
 }
