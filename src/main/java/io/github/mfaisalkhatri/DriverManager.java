@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
@@ -16,14 +17,15 @@ import static java.text.MessageFormat.format;
 public class DriverManager {
     private static final ThreadLocal<WebDriver> DRIVER = new ThreadLocal<>();
     private static final String GRID_URL = "@hub.lambdatest.com/wd/hub";
-    private static final String LT_ACCESS_TOKEN = System.getProperty("LT_ACCESS_KEY");
+    private static final String LT_ACCESS_KEY = System.getProperty("LT_ACCESS_KEY");
     private static final String LT_USERNAME = System.getProperty("LT_USERNAME");
 
     public void createDriver(final Browsers browser) {
         switch (browser) {
-            case FIREFOX -> setupFirefoxDriver();
+            case FIREFOX -> setupFirefoxInLocal();
             case CHROME_CLOUD -> setupChromeInLambdaTest();
-            default -> setupChromeDriver();
+            case FIREFOX_CLOUD -> setupFirefoxInLambdaTest();
+            default -> setupChromeInLocal();
         }
         setupBrowserTimeouts();
     }
@@ -42,7 +44,7 @@ public class DriverManager {
     private HashMap<String, Object> ltOptions() {
         final var ltOptions = new HashMap<String, Object>();
         ltOptions.put("username", LT_USERNAME);
-        ltOptions.put("accessKey", LT_ACCESS_TOKEN);
+        ltOptions.put("accessKey", LT_ACCESS_KEY);
         ltOptions.put("resolution", "2560x1440");
         ltOptions.put("selenium_version", "4.0.0");
         ltOptions.put("build", "LambdaTest Scale Demo");
@@ -63,7 +65,7 @@ public class DriverManager {
                 .implicitlyWait(Duration.ofSeconds(20));
     }
 
-    private void setupChromeDriver() {
+    private void setupChromeInLocal() {
         setDriver(new ChromeDriver());
     }
 
@@ -73,15 +75,27 @@ public class DriverManager {
         browserOptions.setCapability("LT:Options", ltOptions());
         try {
             setDriver(
-                    new RemoteWebDriver(new URL(format("https://{0}:{1}{2}", LT_USERNAME, LT_ACCESS_TOKEN, GRID_URL)),
+                    new RemoteWebDriver(new URL(format("https://{0}:{1}{2}", LT_USERNAME, LT_ACCESS_KEY, GRID_URL)),
                             browserOptions));
         } catch (final MalformedURLException e) {
             throw new Error("Error setting up cloud browser in LambdaTest", e);
         }
-
     }
 
-    private void setupFirefoxDriver() {
+    private void setupFirefoxInLambdaTest() {
+        final var browserOptions = new FirefoxOptions();
+        browserOptions.setPlatformName("Windows 10");
+        browserOptions.setCapability("LT:Options", ltOptions());
+        try {
+            setDriver(
+                    new RemoteWebDriver(new URL(format("https://{0}:{1}{2}", LT_USERNAME, LT_ACCESS_KEY, GRID_URL)),
+                            browserOptions));
+        } catch (final MalformedURLException e) {
+            throw new Error("Error setting up cloud browser in LambdaTest", e);
+        }
+    }
+
+    private void setupFirefoxInLocal() {
         setDriver(new FirefoxDriver());
     }
 }

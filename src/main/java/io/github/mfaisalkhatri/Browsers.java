@@ -4,5 +4,7 @@ public enum Browsers {
 
     CHROME,
     FIREFOX,
-    CHROME_CLOUD;
+    CHROME_CLOUD,
+
+    FIREFOX_CLOUD;
 }

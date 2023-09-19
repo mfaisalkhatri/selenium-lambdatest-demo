@@ -31,5 +31,14 @@
             </class>
         </classes>
     </test>
-
+    <test name="Selenium Playground - Input Form Demo Test on LambdaTest Firefox">
+        <parameter name="browser" value="firefox_cloud"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.SeleniumDemoTests">
+                <methods>
+                    <include name="testInputForm"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>

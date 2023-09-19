@@ -3,7 +3,6 @@ package io.github.mfaisalkhatri.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -11,8 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class FormDemoPage {
-
-
     private final WebDriver driver;
     private final WebDriverWait wait;
 
@@ -48,7 +45,6 @@ public class FormDemoPage {
     private void countryName(final String countryName) {
         country().click();
         new Select(country()).selectByVisibleText(countryName);
-
     }
 
     private WebElement cityField() {
@@ -96,5 +92,4 @@ public class FormDemoPage {
         this.zipCodeField().sendKeys(zipCode);
         this.submitBtn().click();
     }
-
 }
