@@ -4,7 +4,7 @@
     <test name="Selenium Playground - Input Form Demo Test on Chrome">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="io.github.mfaisalkhatri.SeleniumDemoTests">
+            <class name="io.github.mfaisalkhatri.SeleniumPlaygroundDemoTests">
                 <methods>
                     <include name="testInputForm"/>
                 </methods>
@@ -14,7 +14,7 @@
     <test name="Selenium Playground - Input Form Demo Test on Firefox">
         <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="io.github.mfaisalkhatri.SeleniumDemoTests">
+            <class name="io.github.mfaisalkhatri.SeleniumPlaygroundDemoTests">
                 <methods>
                     <include name="testInputForm"/>
                 </methods>
@@ -24,7 +24,7 @@
     <test name="Selenium Playground - Input Form Demo Test on LambdaTest Chrome">
         <parameter name="browser" value="chrome_cloud"/>
         <classes>
-            <class name="io.github.mfaisalkhatri.SeleniumDemoTests">
+            <class name="io.github.mfaisalkhatri.SeleniumPlaygroundDemoTests">
                 <methods>
                     <include name="testInputForm"/>
                 </methods>
@@ -34,7 +34,7 @@
     <test name="Selenium Playground - Input Form Demo Test on LambdaTest Firefox">
         <parameter name="browser" value="firefox_cloud"/>
         <classes>
-            <class name="io.github.mfaisalkhatri.SeleniumDemoTests">
+            <class name="io.github.mfaisalkhatri.SeleniumPlaygroundDemoTests">
                 <methods>
                     <include name="testInputForm"/>
                 </methods>

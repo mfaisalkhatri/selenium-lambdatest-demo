@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="LambdaTest ECommerce Tests">
+    <test name="ECommerce Website Login tests" enabled="false">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.LambdaTestECommerceTests">
+                <methods>
+                    <include name="testLogin"/>
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- Test -->
+    <test name="ECommerce Website Login tests on LambdaTest Cloud Grid on Chrome">
+        <parameter name="browser" value="chrome_cloud"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.LambdaTestECommerceTests">
+                <methods>
+                    <include name="testLogin"/>
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- Test -->
+
+</suite> <!-- Suite -->
