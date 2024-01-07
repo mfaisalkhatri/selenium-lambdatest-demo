@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static org.testng.Assert.assertEquals;
+
 
 public class LoginPage {
 
@@ -30,10 +32,22 @@ public class LoginPage {
     }
 
 
+    public void performLogin(String email, String password, boolean isValidUser) {
+        emailField().clear();
+        emailField().sendKeys(email);
+        passwordField().clear();
+        passwordField().sendKeys(password);
+        loginBtn().click();
+        if(!isValidUser) {
+            assertEquals(getErrorMessageText(), "Warning: No match for E-Mail Address and/or Password.");
+        } else {
+            MyAccountPage myAccountPage= new MyAccountPage(driver);
+            assertEquals(myAccountPage.getPageTitle(), "My Account");
+        }
+    }
 
-    /*
-    email - david.thomson@gmail.com
-    password - Secret@123
+    public String getErrorMessageText() {
+        return driver.findElement(By.cssSelector("#account-login div.alert")).getText();
+    }
 
-     */
 }
