@@ -1,12 +1,12 @@
 package io.github.mfaisalkhatri;
 
-import io.github.mfaisalkhatri.pages.FormDemoPage;
-import io.github.mfaisalkhatri.pages.MainPage;
+import io.github.mfaisalkhatri.pages.seleniumplayground.FormDemoPage;
+import io.github.mfaisalkhatri.pages.seleniumplayground.MainPage;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class SeleniumDemoTests extends BaseTest {
+public class SeleniumPlaygroundDemoTests extends BaseTest {
 
     @Test
     public void testInputForm() {
