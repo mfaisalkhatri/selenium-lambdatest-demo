@@ -2,7 +2,9 @@
 
 ## :question: What is this Repository about?
 
-- This repo contains example code for the [input form page](https://www.lambdatest.com/selenium-playground/input-form-demo) on [LambdaTest's Selenium Playground](https://www.lambdatest.com/selenium-playground/)  
+- This repo contains example code for the following : 
+- [Input form page](https://www.lambdatest.com/selenium-playground/input-form-demo) on [LambdaTest's Selenium Playground](https://www.lambdatest.com/selenium-playground/)
+- [Login Page](https://ecommerce-playground.lambdatest.io/index.php?route=account/login) on [LambdaTest ECommerce Website](https://ecommerce-playground.lambdatest.io/index.php)
 - Maven is used as build tool in this project
 - TestNG is used as testing framework for organizing and running tests and performing Assertions
 - Tests are run on Chrome browser using [LambdaTest Cloud grid](https://www.lambdatest.com/)
