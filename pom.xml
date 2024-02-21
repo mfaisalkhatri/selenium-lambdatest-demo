@@ -11,10 +11,11 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <selenium-java.version>4.16.1</selenium-java.version>
+        <selenium-java.version>4.18.1</selenium-java.version>
         <testng.version>7.9.0</testng.version>
+        <webdrivermanager.version>5.6.4</webdrivermanager.version>
         <maven.compiler.version>3.12.1</maven.compiler.version>
-        <surefire-version>3.2.3</surefire-version>
+        <surefire-version>3.2.5</surefire-version>
         <java.release.version>17</java.release.version>
         <maven.source.encoding>UTF-8</maven.source.encoding>
         <suite-xml>test-suites/testng.xml</suite-xml>
@@ -33,6 +34,13 @@
             <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
