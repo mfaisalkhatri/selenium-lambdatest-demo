@@ -43,8 +43,6 @@ public class DriverManager {
 
     private HashMap<String, Object> ltOptions() {
         final var ltOptions = new HashMap<String, Object>();
-        ltOptions.put("username", LT_USERNAME);
-        ltOptions.put("accessKey", LT_ACCESS_KEY);
         ltOptions.put("resolution", "2560x1440");
         ltOptions.put("selenium_version", "4.0.0");
         ltOptions.put("build", "LambdaTest Scale Demo");
