@@ -20,8 +20,8 @@ public class ChromeRemoteWithWebDriverManagerTest {
     @BeforeTest
     public void setup() {
         ChromeOptions browserOptions = new ChromeOptions();
-        browserOptions.setPlatformName("MacOS Catalina");
-        browserOptions.setBrowserVersion("latest-1");
+        browserOptions.setPlatformName("Windows 10");
+        browserOptions.setBrowserVersion("122.0");
         HashMap<String, Object> ltOptions = new HashMap<String, Object>();
         ltOptions.put("project", "WebDriverManager Demo");
         ltOptions.put("w3c", true);
