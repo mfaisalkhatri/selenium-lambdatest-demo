@@ -59,7 +59,7 @@ public class RelativeLocatorTests {
 
     }
     @AfterTest
-    public void teardown() {
+    public void tearDown() {
         driver.quit();
     }
 
