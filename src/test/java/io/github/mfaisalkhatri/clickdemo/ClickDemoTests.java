@@ -30,7 +30,6 @@ public class ClickDemoTests {
         } catch (final MalformedURLException e) {
             System.out.println("Could not start the remote session on LambdaTest cloud grid");
         }
-
     }
 
     @Test
@@ -54,6 +53,17 @@ public class ClickDemoTests {
         assertTrue(checkboxOne.isSelected());
         final String selectedResult = this.driver.findElement(By.id("txtAge")).getText();
         assertEquals(selectedResult, "Checked");
+    }
+
+    @Test
+    public void radioButtonDemoTest() {
+        driver.get("https://www.lambdatest.com/selenium-playground/radiobutton-demo");
+        final WebElement maleRadioBtn = driver.findElement(By.cssSelector("[name=\"optradio\"][value=\"Male\"]"));
+        maleRadioBtn.click();
+        final WebElement getValueBtn = driver.findElement(By.id("buttoncheck"));
+        getValueBtn.click();
+        String resultText = driver.findElement(By.cssSelector("p.text-black.radiobutton")).getText();
+        assertEquals(resultText,"Radio button 'Male' is checked");
     }
 
     public ChromeOptions getChromeOptions() {
