@@ -1,6 +1,7 @@
 package io.github.mfaisalkhatri.clickdemo;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,6 +14,7 @@ import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.HashMap;
 
 import static org.testng.Assert.assertEquals;
@@ -24,15 +26,16 @@ public class ClickDemoTests {
 
     @BeforeTest
     public void setup() {
-//        String userName = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
-//        String accessKey = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
-//        String gridUrl = "@hub.lambdatest.com/wd/hub";
-//        try {
-//            this.driver = new RemoteWebDriver(new URL("http://" + userName + ":" + accessKey + gridUrl), getChromeOptions());
-//        } catch (final MalformedURLException e) {
-//            System.out.println("Could not start the remote session on LambdaTest cloud grid");
-//        }
-        driver = new ChromeDriver();
+        String userName = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
+        String accessKey = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
+        String gridUrl = "@hub.lambdatest.com/wd/hub";
+        try {
+            this.driver = new RemoteWebDriver(new URL("http://" + userName + ":" + accessKey + gridUrl), getChromeOptions());
+        } catch (final MalformedURLException e) {
+            System.out.println("Could not start the remote session on LambdaTest cloud grid");
+        }
+//        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     @Test
@@ -73,15 +76,25 @@ public class ClickDemoTests {
     public void testMouseHover() {
 
         driver.get("https://www.lambdatest.com/selenium-playground/hover-demo");
-        WebElement hoverMeGreenBtn = driver.findElement(By.className("bg-green-200"));
-        String bgColor = hoverMeGreenBtn.getCssValue("background-color");
-        System.out.println(bgColor);
+        WebElement hoverMeGreenBtn = driver.findElement(By.className("bg-green-100"));
+        String bgColorBase = hoverMeGreenBtn.getCssValue("background-color");
+        assertEquals(bgColorBase, "rgba(40, 167, 69, 1)");
+
         Actions actions = new Actions(driver);
-        actions.moveToElement(hoverMeGreenBtn).build().perform();
+        actions.moveToElement(hoverMeGreenBtn).pause(2000).build().perform();
         String bgColorNew = hoverMeGreenBtn.getCssValue("background-color");
-        System.out.println(bgColorNew);
+        assertEquals(bgColorNew, "rgba(255, 255, 255, 1)");
     }
-    
+
+    @Test
+    public void testScrollUsingJSExecutor ()  {
+        driver.get("https://www.lambdatest.com/selenium-playground/hover-demo");
+        WebElement zoomInImage = driver.findElement(By.cssSelector(".s__column2 .image-card img"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", zoomInImage);
+        String imageText = driver.findElement(By.cssSelector(".p-15 h2:nth-child(8)")).getText();
+        assertEquals(imageText, "Zoom In");
+    }
 
     public ChromeOptions getChromeOptions() {
         final var browserOptions = new ChromeOptions();
