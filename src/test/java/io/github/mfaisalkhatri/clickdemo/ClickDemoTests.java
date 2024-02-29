@@ -32,7 +32,7 @@ public class ClickDemoTests {
         } catch (final MalformedURLException e) {
             System.out.println("Could not start the remote session on LambdaTest cloud grid");
         }
-        //driver = new ChromeDriver();
+//        driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
@@ -77,6 +77,7 @@ public class ClickDemoTests {
         String bgColorBase = hoverMeGreenBtn.getCssValue("background-color");
         assertEquals(bgColorBase, "rgba(40, 167, 69, 1)");
 
+        WebElement submitBtn = driver.findElement(By.xpath("//*[@id=\"seleniumform\"]/div[6]/button"));
         Actions actions = new Actions(driver);
         actions.moveToElement(hoverMeGreenBtn).pause(2000).build().perform();
         String bgColorNew = hoverMeGreenBtn.getCssValue("background-color");
@@ -134,7 +135,21 @@ public class ClickDemoTests {
         assertEquals(outputRange,"71");
     }
 
-    
+    @Test
+    public void testDragAndDrop() {
+
+        driver.get("https://www.lambdatest.com/selenium-playground/drag-and-drop-demo");
+        WebElement draggableOne = driver.findElement(By.cssSelector("#todrag > span"));
+        WebElement dropHere = driver.findElement(By.id("mydropzone"));
+
+        Actions actions = new Actions(driver);
+        actions.dragAndDrop(draggableOne, dropHere).build().perform();
+
+        WebElement droppedList = driver.findElement(By.cssSelector("#droppedlist > span"));
+        assertEquals(droppedList.getText(), "Draggable 1");
+
+
+    }
 
     public ChromeOptions getChromeOptions() {
         final var browserOptions = new ChromeOptions();
