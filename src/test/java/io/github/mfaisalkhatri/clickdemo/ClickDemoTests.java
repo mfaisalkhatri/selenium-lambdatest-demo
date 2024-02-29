@@ -3,7 +3,9 @@ package io.github.mfaisalkhatri.clickdemo;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -22,14 +24,15 @@ public class ClickDemoTests {
 
     @BeforeTest
     public void setup() {
-        String userName = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
-        String accessKey = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
-        String gridUrl = "@hub.lambdatest.com/wd/hub";
-        try {
-            this.driver = new RemoteWebDriver(new URL("http://" + userName + ":" + accessKey + gridUrl), getChromeOptions());
-        } catch (final MalformedURLException e) {
-            System.out.println("Could not start the remote session on LambdaTest cloud grid");
-        }
+//        String userName = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
+//        String accessKey = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
+//        String gridUrl = "@hub.lambdatest.com/wd/hub";
+//        try {
+//            this.driver = new RemoteWebDriver(new URL("http://" + userName + ":" + accessKey + gridUrl), getChromeOptions());
+//        } catch (final MalformedURLException e) {
+//            System.out.println("Could not start the remote session on LambdaTest cloud grid");
+//        }
+        driver = new ChromeDriver();
     }
 
     @Test
@@ -65,6 +68,20 @@ public class ClickDemoTests {
         String resultText = driver.findElement(By.cssSelector("p.text-black.radiobutton")).getText();
         assertEquals(resultText,"Radio button 'Male' is checked");
     }
+
+    @Test
+    public void testMouseHover() {
+
+        driver.get("https://www.lambdatest.com/selenium-playground/hover-demo");
+        WebElement hoverMeGreenBtn = driver.findElement(By.className("bg-green-200"));
+        String bgColor = hoverMeGreenBtn.getCssValue("background-color");
+        System.out.println(bgColor);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(hoverMeGreenBtn).build().perform();
+        String bgColorNew = hoverMeGreenBtn.getCssValue("background-color");
+        System.out.println(bgColorNew);
+    }
+    
 
     public ChromeOptions getChromeOptions() {
         final var browserOptions = new ChromeOptions();
