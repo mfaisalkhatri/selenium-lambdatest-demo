@@ -32,7 +32,7 @@ public class ClickDemoTests {
         } catch (final MalformedURLException e) {
             System.out.println("Could not start the remote session on LambdaTest cloud grid");
         }
-//        driver = new ChromeDriver();
+       // driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
@@ -109,6 +109,17 @@ public class ClickDemoTests {
 
         assertEquals(resultText, "13");
 
+    }
+
+    @Test
+    public void testDoubleClick()  {
+        this.driver.get("https://www.lambdatest.com/selenium-playground/checkbox-demo");
+        final WebElement checkboxOne = this.driver.findElement(By.id("isAgeSelected"));
+
+        Actions actions = new Actions(driver);
+        actions.doubleClick(checkboxOne).build().perform();
+
+        assertTrue(!checkboxOne.isSelected());
     }
 
     public ChromeOptions getChromeOptions() {
