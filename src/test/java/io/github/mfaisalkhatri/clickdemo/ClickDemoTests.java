@@ -32,7 +32,7 @@ public class ClickDemoTests {
         } catch (final MalformedURLException e) {
             System.out.println("Could not start the remote session on LambdaTest cloud grid");
         }
-       // driver = new ChromeDriver();
+        //driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
@@ -121,6 +121,20 @@ public class ClickDemoTests {
 
         assertTrue(!checkboxOne.isSelected());
     }
+
+    @Test
+    public void testClickAndHold () {
+        driver.get("https://www.lambdatest.com/selenium-playground/drag-drop-range-sliders-demo");
+        WebElement sliderOne = driver.findElement(By.cssSelector("#slider1 input.sp__range"));
+
+        Actions actions = new Actions(driver);
+        actions.moveToElement(sliderOne).clickAndHold().moveByOffset(100,283).build().perform();
+
+        String outputRange = driver.findElement(By.id("range")).getText();
+        assertEquals(outputRange,"71");
+    }
+
+    
 
     public ChromeOptions getChromeOptions() {
         final var browserOptions = new ChromeOptions();
