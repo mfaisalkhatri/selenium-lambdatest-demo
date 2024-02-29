@@ -1,11 +1,14 @@
 package io.github.mfaisalkhatri.clickdemo;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -14,6 +17,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -33,7 +37,8 @@ public class ClickDemoTests {
             System.out.println("Could not start the remote session on LambdaTest cloud grid");
         }
 //        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
     }
 
     @Test
@@ -148,8 +153,37 @@ public class ClickDemoTests {
         WebElement droppedList = driver.findElement(By.cssSelector("#droppedlist > span"));
         assertEquals(droppedList.getText(), "Draggable 1");
 
-
     }
+
+    @Test
+    public void testPageLinks() {
+        this.driver.get("https://www.lambdatest.com/selenium-playground/");
+
+        final WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(20));
+
+        List<WebElement> demoPageLinks = this.driver.findElements(By.cssSelector(".container__selenium ul li a"));
+
+        for (int i = 0; i < demoPageLinks.size(); i++) {
+
+            String pageLinkName = demoPageLinks.get(i).getText();
+            System.out.println(pageLinkName);
+
+            if (!(pageLinkName.equals("Nested Frames"))) {
+
+                final WebElement link = wait.until(ExpectedConditions.elementToBeClickable(demoPageLinks.get(i)));
+                link.click();
+
+                final WebElement pageHeader = wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("h1")));
+                final String pageHeaderText = pageHeader.getText();
+
+                System.out.println("Visited: " + pageHeaderText);
+
+                this.driver.navigate().back();
+                demoPageLinks = this.driver.findElements(By.cssSelector(".container__selenium ul li a"));
+            }
+        }
+    }
+
 
     public ChromeOptions getChromeOptions() {
         final var browserOptions = new ChromeOptions();
