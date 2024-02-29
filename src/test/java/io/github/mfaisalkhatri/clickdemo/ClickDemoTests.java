@@ -1,11 +1,9 @@
 package io.github.mfaisalkhatri.clickdemo;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterTest;
@@ -50,7 +48,6 @@ public class ClickDemoTests {
         assertEquals(yourMessageText, message);
 
     }
-
     @Test
     public void checkboxDemoTest() {
         this.driver.get("https://www.lambdatest.com/selenium-playground/checkbox-demo");
@@ -94,6 +91,24 @@ public class ClickDemoTests {
         js.executeScript("arguments[0].scrollIntoView();", zoomInImage);
         String imageText = driver.findElement(By.cssSelector(".p-15 h2:nth-child(8)")).getText();
         assertEquals(imageText, "Zoom In");
+    }
+    @Test
+    public void testClickUsingCoOrdinates () {
+        driver.get("https://www.lambdatest.com/selenium-playground/simple-form-demo");
+        WebElement firstValueField = driver.findElement(By.id("sum1"));
+        firstValueField.sendKeys("5");
+
+        WebElement secondValueField = driver.findElement(By.id("sum2"));
+        secondValueField.sendKeys("8");
+
+        WebElement getSumBtn = driver.findElement(By.cssSelector("#gettotal > button"));
+
+        Actions actions = new Actions(driver);
+        actions.moveToElement(getSumBtn,10,10).click().build().perform();
+        String resultText = driver.findElement(By.id("addmessage")).getText();
+
+        assertEquals(resultText, "13");
+
     }
 
     public ChromeOptions getChromeOptions() {
