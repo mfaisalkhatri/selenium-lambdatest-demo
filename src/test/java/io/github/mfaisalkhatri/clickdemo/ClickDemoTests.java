@@ -28,17 +28,17 @@ public class ClickDemoTests {
 
     @BeforeTest
     public void setup() {
-        String userName = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
-        String accessKey = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
-        String gridUrl = "@hub.lambdatest.com/wd/hub";
+        final String userName = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
+        final String accessKey = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
+        final String gridUrl = "@hub.lambdatest.com/wd/hub";
         try {
             this.driver = new RemoteWebDriver(new URL("http://" + userName + ":" + accessKey + gridUrl), getChromeOptions());
         } catch (final MalformedURLException e) {
             System.out.println("Could not start the remote session on LambdaTest cloud grid");
         }
 //        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
+        this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        this.driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class ClickDemoTests {
         enterMessage.sendKeys(message);
         final WebElement getCheckedValueBtn = this.driver.findElement(By.id("showInput"));
         getCheckedValueBtn.click();
-        String yourMessageText = this.driver.findElement(By.id("message")).getText();
+        final String yourMessageText = this.driver.findElement(By.id("message")).getText();
         assertEquals(yourMessageText, message);
 
     }
@@ -65,53 +65,53 @@ public class ClickDemoTests {
 
     @Test
     public void radioButtonDemoTest() {
-        driver.get("https://www.lambdatest.com/selenium-playground/radiobutton-demo");
-        final WebElement maleRadioBtn = driver.findElement(By.cssSelector("[name=\"optradio\"][value=\"Male\"]"));
+        this.driver.get("https://www.lambdatest.com/selenium-playground/radiobutton-demo");
+        final WebElement maleRadioBtn = this.driver.findElement(By.cssSelector("[name=\"optradio\"][value=\"Male\"]"));
         maleRadioBtn.click();
-        final WebElement getValueBtn = driver.findElement(By.id("buttoncheck"));
+        final WebElement getValueBtn = this.driver.findElement(By.id("buttoncheck"));
         getValueBtn.click();
-        String resultText = driver.findElement(By.cssSelector("p.text-black.radiobutton")).getText();
+        final String resultText = this.driver.findElement(By.cssSelector("p.text-black.radiobutton")).getText();
         assertEquals(resultText,"Radio button 'Male' is checked");
     }
 
     @Test
     public void testMouseHover() {
 
-        driver.get("https://www.lambdatest.com/selenium-playground/hover-demo");
-        WebElement hoverMeGreenBtn = driver.findElement(By.className("bg-green-100"));
-        String bgColorBase = hoverMeGreenBtn.getCssValue("background-color");
+        this.driver.get("https://www.lambdatest.com/selenium-playground/hover-demo");
+        final WebElement hoverMeGreenBtn = this.driver.findElement(By.className("bg-green-100"));
+        final String bgColorBase = hoverMeGreenBtn.getCssValue("background-color");
         assertEquals(bgColorBase, "rgba(40, 167, 69, 1)");
 
-        WebElement submitBtn = driver.findElement(By.xpath("//*[@id=\"seleniumform\"]/div[6]/button"));
-        Actions actions = new Actions(driver);
+        final WebElement submitBtn = this.driver.findElement(By.xpath("//*[@id=\"seleniumform\"]/div[6]/button"));
+        final Actions actions = new Actions(this.driver);
         actions.moveToElement(hoverMeGreenBtn).pause(2000).build().perform();
-        String bgColorNew = hoverMeGreenBtn.getCssValue("background-color");
+        final String bgColorNew = hoverMeGreenBtn.getCssValue("background-color");
         assertEquals(bgColorNew, "rgba(255, 255, 255, 1)");
     }
 
     @Test
     public void testScrollUsingJSExecutor ()  {
-        driver.get("https://www.lambdatest.com/selenium-playground/hover-demo");
-        WebElement zoomInImage = driver.findElement(By.cssSelector(".s__column2 .image-card img"));
-        JavascriptExecutor js = (JavascriptExecutor) driver;
+        this.driver.get("https://www.lambdatest.com/selenium-playground/hover-demo");
+        final WebElement zoomInImage = this.driver.findElement(By.cssSelector(".s__column2 .image-card img"));
+        final JavascriptExecutor js = (JavascriptExecutor) this.driver;
         js.executeScript("arguments[0].scrollIntoView();", zoomInImage);
-        String imageText = driver.findElement(By.cssSelector(".p-15 h2:nth-child(8)")).getText();
+        final String imageText = this.driver.findElement(By.cssSelector(".p-15 h2:nth-child(8)")).getText();
         assertEquals(imageText, "Zoom In");
     }
     @Test
     public void testClickUsingCoOrdinates () {
-        driver.get("https://www.lambdatest.com/selenium-playground/simple-form-demo");
-        WebElement firstValueField = driver.findElement(By.id("sum1"));
+        this.driver.get("https://www.lambdatest.com/selenium-playground/simple-form-demo");
+        final WebElement firstValueField = this.driver.findElement(By.id("sum1"));
         firstValueField.sendKeys("5");
 
-        WebElement secondValueField = driver.findElement(By.id("sum2"));
+        final WebElement secondValueField = this.driver.findElement(By.id("sum2"));
         secondValueField.sendKeys("8");
 
-        WebElement getSumBtn = driver.findElement(By.cssSelector("#gettotal > button"));
+        final WebElement getSumBtn = this.driver.findElement(By.cssSelector("#gettotal > button"));
 
-        Actions actions = new Actions(driver);
+        final Actions actions = new Actions(this.driver);
         actions.moveToElement(getSumBtn,10,10).click().build().perform();
-        String resultText = driver.findElement(By.id("addmessage")).getText();
+        final String resultText = this.driver.findElement(By.id("addmessage")).getText();
 
         assertEquals(resultText, "13");
 
@@ -122,7 +122,7 @@ public class ClickDemoTests {
         this.driver.get("https://www.lambdatest.com/selenium-playground/checkbox-demo");
         final WebElement checkboxOne = this.driver.findElement(By.id("isAgeSelected"));
 
-        Actions actions = new Actions(driver);
+        final Actions actions = new Actions(this.driver);
         actions.doubleClick(checkboxOne).build().perform();
 
         assertTrue(!checkboxOne.isSelected());
@@ -130,27 +130,27 @@ public class ClickDemoTests {
 
     @Test
     public void testClickAndHold () {
-        driver.get("https://www.lambdatest.com/selenium-playground/drag-drop-range-sliders-demo");
-        WebElement sliderOne = driver.findElement(By.cssSelector("#slider1 input.sp__range"));
+        this.driver.get("https://www.lambdatest.com/selenium-playground/drag-drop-range-sliders-demo");
+        final WebElement sliderOne = this.driver.findElement(By.cssSelector("#slider1 input.sp__range"));
 
-        Actions actions = new Actions(driver);
+        final Actions actions = new Actions(this.driver);
         actions.moveToElement(sliderOne).clickAndHold().moveByOffset(100,283).build().perform();
 
-        String outputRange = driver.findElement(By.id("range")).getText();
+        final String outputRange = this.driver.findElement(By.id("range")).getText();
         assertEquals(outputRange,"71");
     }
 
     @Test
     public void testDragAndDrop() {
 
-        driver.get("https://www.lambdatest.com/selenium-playground/drag-and-drop-demo");
-        WebElement draggableOne = driver.findElement(By.cssSelector("#todrag > span"));
-        WebElement dropHere = driver.findElement(By.id("mydropzone"));
+        this.driver.get("https://www.lambdatest.com/selenium-playground/drag-and-drop-demo");
+        final WebElement draggableOne = this.driver.findElement(By.cssSelector("#todrag > span"));
+        final WebElement dropHere = this.driver.findElement(By.id("mydropzone"));
 
-        Actions actions = new Actions(driver);
+        final Actions actions = new Actions(this.driver);
         actions.dragAndDrop(draggableOne, dropHere).build().perform();
 
-        WebElement droppedList = driver.findElement(By.cssSelector("#droppedlist > span"));
+        final WebElement droppedList = this.driver.findElement(By.cssSelector("#droppedlist > span"));
         assertEquals(droppedList.getText(), "Draggable 1");
 
     }
@@ -165,7 +165,7 @@ public class ClickDemoTests {
 
         for (int i = 0; i < demoPageLinks.size(); i++) {
 
-            String pageLinkName = demoPageLinks.get(i).getText();
+            final String pageLinkName = demoPageLinks.get(i).getText();
             System.out.println(pageLinkName);
 
             if (!(pageLinkName.equals("Nested Frames"))) {
