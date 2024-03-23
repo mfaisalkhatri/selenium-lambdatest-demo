@@ -4,13 +4,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.HashMap;
 
 import static org.testng.Assert.assertEquals;
@@ -46,8 +50,36 @@ public class ThreadSleepDemoTests {
 
         Thread.sleep(3000);
 
-        final String myAccountHeaderText = driver.findElement(By.cssSelector("#content h2")).getText();
+        final String myAccountHeaderText = this.driver.findElement(By.cssSelector("#content h2")).getText();
         assertEquals(myAccountHeaderText, "My Account");
+    }
+
+    @Test
+    public void testWebsiteNavigation() throws InterruptedException {
+        this.driver.get("https://ecommerce-playground.lambdatest.io/");
+        Thread.sleep(1000);
+
+        this.driver.findElement(By.linkText("Shop by Category")).click();
+
+        Thread.sleep(1000);
+
+        this.driver.findElement(By.cssSelector(".entry-component .entry-widget nav.navbar ul li:nth-child(5) a")).click();
+
+        Thread.sleep(1000);
+
+        final Actions actions = new Actions(driver);
+        actions.pause(2000);
+    }
+
+    @Test
+    public void testWebsiteNavigationWithExplicitWait() {
+        this.driver.get("https://ecommerce-playground.lambdatest.io/");
+
+        final WebDriverWait wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Shop by Category"))).click();
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".entry-component .entry-widget nav.navbar ul li:nth-child(5) a"))).click();
     }
 
     public ChromeOptions getChromeOptions() {
@@ -64,6 +96,7 @@ public class ThreadSleepDemoTests {
         browserOptions.setCapability("LT:Options", ltOptions);
 
         return browserOptions;
+
 
     }
 
