@@ -1,6 +1,7 @@
 package io.github.mfaisalkhatri.paginationdemo.pages;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.json.JsonOutput;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
@@ -55,5 +56,27 @@ public class ProductPage {
         return this.driver.findElement(By.cssSelector(".content-pagination .text-right")).getText();
     }
 
-    
+    public void searchForProduct(final String nameOfProduct) {
+        boolean found = false;
+        while (!found) {
+            final List<WebElement> products = this.driver.findElements(By.cssSelector(".product-layout"));
+            for (final WebElement product : products) {
+                final String productName = product.findElement(By.cssSelector(".caption h4 a")).getText();
+                if (nameOfProduct.equals(productName)) {
+                    System.out.println("Product found!");
+                    found = true;
+                    break;
+                }
+            }
+            if (isNextButtonIsDisplayed()) {
+                this.driver.findElement(By.linkText(">")).click();
+            } else {
+                System.out.println("Product Not Found!");
+                break;
+            }
+        }
+    }
 }
+
+
+

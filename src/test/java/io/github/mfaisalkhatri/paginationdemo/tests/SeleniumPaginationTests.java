@@ -51,7 +51,10 @@ public class SeleniumPaginationTests {
 
     @Test
     public void testSearchForProduct() {
+        this.driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=25_28");
 
+        final ProductPage productPage = new ProductPage(this.driver);
+        productPage.searchForProduct("HP LP3065");
     }
 
     @AfterTest
