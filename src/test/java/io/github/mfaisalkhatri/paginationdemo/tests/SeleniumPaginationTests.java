@@ -1,4 +1,4 @@
-package io.github.mfaisalkhatri.paginationdemo;
+package io.github.mfaisalkhatri.paginationdemo.tests;
 
 import io.github.mfaisalkhatri.paginationdemo.pages.ProductPage;
 import org.openqa.selenium.WebDriver;
@@ -49,6 +49,10 @@ public class SeleniumPaginationTests {
         productPage.printProductDetailsOnPages();
     }
 
+    @Test
+    public void testSearchForProduct() {
+
+    }
 
     @AfterTest
     public void tearDown() {

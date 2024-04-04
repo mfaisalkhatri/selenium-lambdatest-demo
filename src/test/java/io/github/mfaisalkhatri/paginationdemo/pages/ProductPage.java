@@ -54,4 +54,6 @@ public class ProductPage {
     public String paginationDetails() {
         return this.driver.findElement(By.cssSelector(".content-pagination .text-right")).getText();
     }
+
+    
 }
