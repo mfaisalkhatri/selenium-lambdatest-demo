@@ -38,7 +38,6 @@ public class SeleniumPaginationTests {
         productPage.printProductDetailsOnPages();
     }
 
-
     @Test
     public void testByChangingProductNumberOnPage() {
         this.driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=25_28");
