@@ -1,13 +1,15 @@
 package io.github.mfaisalkhatri.paginationdemo;
 
-import org.openqa.selenium.*;
+import io.github.mfaisalkhatri.paginationdemo.pages.ProductPage;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
-import java.util.List;
+
+import static org.testng.Assert.assertTrue;
 
 public class SeleniumPaginationTests {
 
@@ -28,38 +30,25 @@ public class SeleniumPaginationTests {
     }
 
     @Test
-    public void testPagination() {
+    public void testProductDetailsOnAllPage() {
         this.driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=25_28");
 
-        while (isNavigationPanelDisplayed()) {
-            final List<WebElement> products = this.driver.findElements(By.cssSelector(".product-layout"));
-            for (final WebElement product : products) {
-                final WebElement productName = product.findElement(By.cssSelector(".caption h4 a"));
-                System.out.println(productName.getText());
-            }
-            if (isNextButtonIsDisplayed()) {
-                this.driver.findElement(By.linkText(">")).click();
-            } else {
-                break;
-            }
-        }
+        final ProductPage productPage = new ProductPage(this.driver);
+        assertTrue(productPage.paginationDetails().contains("5 Pages"));
+        productPage.printProductDetailsOnPages();
     }
 
-    private boolean isNextButtonIsDisplayed() {
-        try {
-            return this.driver.findElement(By.linkText(">")).isDisplayed();
-        } catch (NoSuchElementException | StaleElementReferenceException e) {
-            return false;
-        }
+
+    @Test
+    public void testByChangingProductNumberOnPage() {
+        this.driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=25_28");
+
+        final ProductPage productPage = new ProductPage(this.driver);
+        productPage.changeFilterRecord("50");
+        assertTrue(productPage.paginationDetails().contains("2 Pages"));
+        productPage.printProductDetailsOnPages();
     }
 
-    private boolean isNavigationPanelDisplayed() {
-        try {
-            return this.driver.findElement(By.cssSelector("ul.pagination")).isDisplayed();
-        } catch (NoSuchElementException | StaleElementReferenceException e) {
-            return false;
-        }
-    }
 
     @AfterTest
     public void tearDown() {
