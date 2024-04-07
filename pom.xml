@@ -13,7 +13,7 @@
     <properties>
         <selenium-java.version>4.19.1</selenium-java.version>
         <testng.version>7.9.0</testng.version>
-        <webdrivermanager.version>5.7.0</webdrivermanager.version>
+        <webdrivermanager.version>5.8.0</webdrivermanager.version>
         <maven.compiler.version>3.13.0</maven.compiler.version>
         <surefire-version>3.2.5</surefire-version>
         <java.release.version>17</java.release.version>
