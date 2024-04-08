@@ -85,7 +85,7 @@ public class ThreadSleepDemoTests {
     public ChromeOptions getChromeOptions() {
         final var browserOptions = new ChromeOptions();
         browserOptions.setPlatformName("Windows 10");
-        browserOptions.setBrowserVersion("122.0");
+        browserOptions.setBrowserVersion("123.0");
         final HashMap<String, Object> ltOptions = new HashMap<String, Object>();
         ltOptions.put("project", "Thread.sleep Demo on Cloud");
         ltOptions.put("build", "LambdaTest e-commerce website test");
