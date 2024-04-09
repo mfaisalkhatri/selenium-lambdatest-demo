@@ -1,7 +1,6 @@
 package io.github.mfaisalkhatri.paginationdemo.pages;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.json.JsonOutput;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
@@ -49,7 +48,6 @@ public class ProductPage {
         final WebElement recordFilter = this.driver.findElement(By.cssSelector(".custom-select"));
         final Select select = new Select(recordFilter);
         select.selectByVisibleText(recordNumber);
-
     }
 
     public String paginationDetails() {
@@ -76,7 +74,13 @@ public class ProductPage {
             }
         }
     }
+
+    public void navigateToLastPage() {
+        this.driver.findElement(By.linkText(">|")).click();
+    }
+
+    public void navigateToFirstPage() {
+        this.driver.findElement(By.linkText("|<")).click();
+    }
+
 }
-
-
-

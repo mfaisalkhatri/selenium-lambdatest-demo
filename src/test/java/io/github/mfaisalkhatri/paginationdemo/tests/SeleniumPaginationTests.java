@@ -43,13 +43,12 @@ public class SeleniumPaginationTests {
     }
 
     @Test
-    public void testByChangingProductNumberOnPage() {
+    public void testFilterRecordsOnPage() {
         this.driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=25_28");
 
         final ProductPage productPage = new ProductPage(this.driver);
         productPage.changeFilterRecord("50");
         assertTrue(productPage.paginationDetails().contains("2 Pages"));
-        productPage.printProductDetailsOnPages();
     }
 
     @Test
@@ -58,6 +57,18 @@ public class SeleniumPaginationTests {
 
         final ProductPage productPage = new ProductPage(this.driver);
         productPage.searchForProduct("HP LP3065");
+    }
+
+    @Test
+    public void testPageNavigation() {
+        this.driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=25_28");
+
+        final ProductPage productPage = new ProductPage(this.driver);
+        productPage.navigateToLastPage();
+        assertTrue(productPage.paginationDetails().contains("Showing 61 to 75 of 75"));
+
+        productPage.navigateToFirstPage();
+        assertTrue(productPage.paginationDetails().contains("Showing 1 to 15 of 75"));
     }
 
     public ChromeOptions getChromeOptions() {

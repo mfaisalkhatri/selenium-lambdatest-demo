@@ -6,8 +6,9 @@
             <class name="io.github.mfaisalkhatri.paginationdemo.tests.SeleniumPaginationTests">
                 <methods>
                     <include name="testProductDetailsOnAllPage"/>
-                    <include name="testByChangingProductNumberOnPage"/>
+                    <include name="testFilterRecordsOnPage"/>
                     <include name="testSearchForProduct"/>
+                    <include name="testPageNavigation"/>
                 </methods>
             </class>
         </classes>
