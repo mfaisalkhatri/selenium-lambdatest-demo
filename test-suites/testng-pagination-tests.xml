@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Automating Pagination with Selenium">
+    <test name="Pagination tests - LambdaTest e-commerce website">
+        <classes>
+            <class name="io.github.mfaisalkhatri.paginationdemo.tests.SeleniumPaginationTests">
+                <methods>
+                    <include name="testProductDetailsOnAllPage"/>
+                    <include name="testFilterRecordsOnPage"/>
+                    <include name="testSearchForProduct"/>
+                    <include name="testPageNavigation"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
