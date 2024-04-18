@@ -113,7 +113,6 @@ public class ThreadSleepDemoTests {
 
     @AfterTest
     public void tearDown() {
-
         this.driver.quit();
     }
 
