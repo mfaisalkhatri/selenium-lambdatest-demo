@@ -7,7 +7,7 @@
             <class name="io.github.mfaisalkhatri.LambdaTestECommerceTests">
                 <methods>
                     <exclude name="testLogin"/>
-                    <exclude name="testRegisterUser"/>
+                    <include name="testRegisterUser"/>
                     <include name="testAddProductToCart"/>
                 </methods>
             </class>

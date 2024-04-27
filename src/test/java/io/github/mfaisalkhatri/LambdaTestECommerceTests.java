@@ -34,7 +34,7 @@ public class LambdaTestECommerceTests extends BaseTest{
     @DataProvider
     public Iterator<Object[]> getRegistrationData() {
         List<Object[]> registerData = new ArrayList<>();
-        registerData.add(new Object[]{"David", "Jones", "davidj@demo.com", "8976783849", "Password123"});
+        registerData.add(new Object[]{"David", "Jacob", "davidjacob@demo.com", "8976783849", "Password123"});
         return registerData.iterator();
     }
 
@@ -47,12 +47,10 @@ public class LambdaTestECommerceTests extends BaseTest{
         RegistrationSuccessPage registrationSuccessPage = registrationPage.registerUser(firstName, lastName, emailId, telephoneNumber, password);
 
         assertEquals(registrationSuccessPage.getSuccessMessage(), "Your Account Has Been Created!");
-
     }
-
     @Test
-    public void testAddProductToCart() throws InterruptedException {
-        this.driverManager.getDriver().navigate().to("https://ecommerce-playground.lambdatest.io/");
+    public void testAddProductToCart() {
+
         MainPage mainPage = new MainPage(this.driverManager.getDriver());
         ProductPage productPage = mainPage.searchProduct("Macbook");
         productPage.adProductToCart();
