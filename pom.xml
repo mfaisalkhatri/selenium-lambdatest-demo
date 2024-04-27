@@ -11,9 +11,10 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <selenium-java.version>4.19.1</selenium-java.version>
-        <testng.version>7.9.0</testng.version>
+        <selenium-java.version>4.20.0</selenium-java.version>
+        <testng.version>7.10.1</testng.version>
         <webdrivermanager.version>5.8.0</webdrivermanager.version>
+        <datafaker.version>2.2.0</datafaker.version>
         <maven.compiler.version>3.13.0</maven.compiler.version>
         <surefire-version>3.2.5</surefire-version>
         <java.release.version>17</java.release.version>
@@ -41,6 +42,13 @@
             <version>${webdrivermanager.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/net.datafaker/datafaker -->
+        <dependency>
+            <groupId>net.datafaker</groupId>
+            <artifactId>datafaker</artifactId>
+            <version>${datafaker.version}</version>
+        </dependency>
+
 
     </dependencies>
     <build>
