@@ -1,7 +1,6 @@
 package io.github.mfaisalkhatri.paginationdemo.tests;
 
 import io.github.mfaisalkhatri.paginationdemo.pages.ProductPage;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterTest;
@@ -17,7 +16,8 @@ import static org.testng.Assert.assertTrue;
 
 public class SeleniumPaginationTests {
 
-    private WebDriver driver;
+    private RemoteWebDriver driver;
+    private String status = "failed";
 
     @BeforeTest
     public void setup() {
@@ -40,6 +40,7 @@ public class SeleniumPaginationTests {
         final ProductPage productPage = new ProductPage(this.driver);
         assertTrue(productPage.paginationDetails().contains("5 Pages"));
         productPage.printProductDetailsOnPages();
+        this.status = "passed";
     }
 
     @Test
@@ -49,6 +50,7 @@ public class SeleniumPaginationTests {
         final ProductPage productPage = new ProductPage(this.driver);
         productPage.changeFilterRecord("50");
         assertTrue(productPage.paginationDetails().contains("2 Pages"));
+        this.status = "passed";
     }
 
     @Test
@@ -57,6 +59,8 @@ public class SeleniumPaginationTests {
 
         final ProductPage productPage = new ProductPage(this.driver);
         productPage.searchForProduct("HP LP3065");
+        this.status = "passed";
+
     }
 
     @Test
@@ -69,6 +73,7 @@ public class SeleniumPaginationTests {
 
         productPage.navigateToFirstPage();
         assertTrue(productPage.paginationDetails().contains("Showing 1 to 15 of 75"));
+        this.status = "passed";
     }
 
     public ChromeOptions getChromeOptions() {
@@ -89,7 +94,8 @@ public class SeleniumPaginationTests {
 
     @AfterTest
     public void tearDown() {
+
+        this.driver.executeScript("lambda-status=" + this.status);
         this.driver.quit();
     }
-
 }
