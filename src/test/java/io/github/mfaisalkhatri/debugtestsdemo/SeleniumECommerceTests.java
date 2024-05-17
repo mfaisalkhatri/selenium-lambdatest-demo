@@ -18,7 +18,6 @@ import java.util.List;
 
 public class SeleniumECommerceTests {
 
-
     RemoteWebDriver driver;
     private final String USERNAME = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
     private final String ACCESS_KEY = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
