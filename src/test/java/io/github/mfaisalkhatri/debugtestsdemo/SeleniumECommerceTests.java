@@ -1,16 +1,16 @@
 package io.github.mfaisalkhatri.debugtestsdemo;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.HashMap;
@@ -19,26 +19,28 @@ import java.util.List;
 public class SeleniumECommerceTests {
 
 
-    WebDriver driver;
+    RemoteWebDriver driver;
     private final String USERNAME = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
     private final String ACCESS_KEY = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
     private final String GRID_URL = "@hub.lambdatest.com/wd/hub";
 
+    private String status = "failed";
+
     @BeforeTest
     public void setup() {
-        //try {
-        //this.driver = new RemoteWebDriver(new URL("http://" + this.USERNAME + ":" + this.ACCESS_KEY + this.GRID_URL), getChromeOptions());
-        driver = new ChromeDriver();
-//        } catch (final MalformedURLException e) {
-//            System.out.println("Could not start the remote session on LambdaTest cloud grid");
-//        }
+        try {
+            this.driver = new RemoteWebDriver(new URL("http://" + this.USERNAME + ":" + this.ACCESS_KEY + this.GRID_URL), getChromeOptions());
+
+        } catch (final MalformedURLException e) {
+            System.out.println("Could not start the remote session on LambdaTest cloud grid");
+        }
 
         this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
     }
 
     @Test
     public void testBrokenLinks() {
-        
+
         driver.get("https://ecommerce-playground.lambdatest.io/");
         WebElement shopByCategoryMenu = driver.findElement(By.cssSelector("div.shop-by-category a"));
         shopByCategoryMenu.click();
@@ -61,6 +63,7 @@ public class SeleniumECommerceTests {
                 throw new RuntimeException(e);
             }
         }
+        this.status = "passed";
     }
 
 
@@ -84,6 +87,7 @@ public class SeleniumECommerceTests {
 
     @AfterTest
     public void tearDown() {
+        this.driver.executeScript("lambda-status=" + this.status);
         this.driver.quit();
     }
 }
