@@ -19,16 +19,16 @@ import java.util.List;
 public class SeleniumECommerceTests {
 
     RemoteWebDriver driver;
-    private final String USERNAME = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
-    private final String ACCESS_KEY = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
-    private final String GRID_URL = "@hub.lambdatest.com/wd/hub";
-
     private String status = "failed";
 
     @BeforeTest
     public void setup() {
+        final String userName = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
+        final String accessKey = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
+        final String gridUrl = "@hub.lambdatest.com/wd/hub";
+
         try {
-            this.driver = new RemoteWebDriver(new URL("http://" + this.USERNAME + ":" + this.ACCESS_KEY + this.GRID_URL), getChromeOptions());
+            this.driver = new RemoteWebDriver(new URL("http://" + userName + ":" + accessKey + gridUrl), getChromeOptions());
 
         } catch (final MalformedURLException e) {
             System.out.println("Could not start the remote session on LambdaTest cloud grid");
