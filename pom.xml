@@ -11,10 +11,10 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <selenium-java.version>4.20.0</selenium-java.version>
-        <testng.version>7.10.1</testng.version>
+        <selenium-java.version>4.21.0</selenium-java.version>
+        <testng.version>7.10.2</testng.version>
         <webdrivermanager.version>5.8.0</webdrivermanager.version>
-        <datafaker.version>2.2.0</datafaker.version>
+        <datafaker.version>2.2.2</datafaker.version>
         <maven.compiler.version>3.13.0</maven.compiler.version>
         <surefire-version>3.2.5</surefire-version>
         <java.release.version>17</java.release.version>
