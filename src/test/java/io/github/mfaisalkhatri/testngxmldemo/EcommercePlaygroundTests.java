@@ -15,7 +15,6 @@ import static org.testng.Assert.assertEquals;
 public class EcommercePlaygroundTests {
     private WebDriver driver;
 
-
     @BeforeTest
     public void setup() {
         driver = new ChromeDriver();
