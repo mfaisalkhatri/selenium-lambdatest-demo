@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Testng.xml demo" parallel="tests">
+    <test name="LambdaTest e-commerce playground tests on Windows 10 - Chrome">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="browserVersion" value="125"/>
+        <parameter name="platform" value="Windows 10"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.testngxmldemo.ECommercePlaygroundTestsOnCloud">
+                <methods>
+                    <include name="testSearchForProduct"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="LambdaTest e-commerce playground tests on macOS Sonoma - Firefox">
+        <parameter name="browser" value="firefox"/>
+        <parameter name="browserVersion" value="126"/>
+        <parameter name="platform" value="macOS Sonoma"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.testngxmldemo.ECommercePlaygroundTestsOnCloud">
+                <methods>
+                    <include name="testSearchForProduct"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

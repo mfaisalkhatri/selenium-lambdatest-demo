@@ -16,7 +16,6 @@ public class Base {
 
     RemoteWebDriver driver;
     String status = "failed";
-
     @BeforeTest
     @Parameters({"browser", "browserVersion", "platform"})
     public void setup(String browser, String browserVersion, String platform) {
@@ -26,7 +25,7 @@ public class Base {
 
         if (browser.equalsIgnoreCase("chrome")) {
             try {
-                this.driver = new RemoteWebDriver(new URL("http://" + userName + ":" + accessKey + gridUrl), getChromOptions(browser, browserVersion, platform));
+                this.driver = new RemoteWebDriver(new URL("http://" + userName + ":" + accessKey + gridUrl), getChromeOptions(browser, browserVersion, platform));
 
             } catch (final MalformedURLException e) {
                 System.out.println("Could not start the chrome browser on LambdaTest cloud grid");
@@ -43,7 +42,7 @@ public class Base {
         this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
     }
 
-    private ChromeOptions getChromOptions(String browser, String browserVersion, String platform) {
+    private ChromeOptions getChromeOptions(String browser, String browserVersion, String platform) {
         var browserOptions = new ChromeOptions();
         browserOptions.setPlatformName(platform);
         browserOptions.setBrowserVersion(browserVersion);
