@@ -3,10 +3,7 @@ package io.github.mfaisalkhatri.screenshotdemo;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -15,14 +12,12 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 
-import static org.testng.Assert.assertEquals;
-
 public class ViewableScreenshotExample {
 
     WebDriver driver;
 
     @BeforeTest
-    public void setupUrl() {
+    public void setup() {
 
         driver = new ChromeDriver();
 
