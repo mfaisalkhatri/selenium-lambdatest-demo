@@ -2,12 +2,17 @@ package io.github.mfaisalkhatri.screenshotdemo;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
@@ -16,17 +21,13 @@ public class FullPageScreenshotTest {
 
     WebDriver driver;
 
-    @BeforeTest
-    public void setup() {
-
+    @Test
+    public void testTakeFullPageScreenshotFirefox() {
         driver = new FirefoxDriver();
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         driver.manage().window().maximize();
-    }
 
-    @Test
-    public void testTakeFullPageScreenshot()  {
 
         driver.get("https://ecommerce-playground.lambdatest.io/");
 
@@ -51,6 +52,26 @@ public class FullPageScreenshotTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    public void testTakeScreenshotUsingAShot() throws IOException {
+        driver = new ChromeDriver();
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+
+        driver.get("https://ecommerce-playground.lambdatest.io/");
+
+        Object output = ((JavascriptExecutor)driver).executeScript("return window.devicePixelRatio");
+        String value = String.valueOf(output);
+        float windowDPR = Float.parseFloat(value);
+
+        Screenshot screenshot = new AShot()
+                .shootingStrategy(ShootingStrategies.viewportPasting(ShootingStrategies.scaling(windowDPR),1000))
+                .takeScreenshot(driver);
+
+        ImageIO.write(screenshot.getImage(), "png", new File("./screenshots/AshotFullPageScreen.png"));
+
     }
 
     @AfterTest
