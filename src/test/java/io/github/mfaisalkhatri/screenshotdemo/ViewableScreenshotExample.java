@@ -23,12 +23,12 @@ public class ViewableScreenshotExample {
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         driver.manage().window().maximize();
-
-        driver.get("https://ecommerce-playground.lambdatest.io/");
     }
 
     @Test
     public void testTakeViewableScreenshot() {
+
+        driver.get("https://ecommerce-playground.lambdatest.io/");
 
         WebElement blogMenu = driver.findElement(By.cssSelector("div.entry-section div.entry-widget ul > li:nth-child(3) > a > div > span"));
         blogMenu.click();
