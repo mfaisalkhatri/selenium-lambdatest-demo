@@ -3,7 +3,6 @@ package io.github.mfaisalkhatri.screenshotdemo;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterTest;
@@ -27,7 +26,6 @@ public class FullPageScreenshotTest {
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         driver.manage().window().maximize();
-
 
         driver.get("https://ecommerce-playground.lambdatest.io/");
 
@@ -62,9 +60,8 @@ public class FullPageScreenshotTest {
 
         driver.get("https://ecommerce-playground.lambdatest.io/");
 
-        Object output = ((JavascriptExecutor)driver).executeScript("return window.devicePixelRatio");
-        String value = String.valueOf(output);
-        float windowDPR = Float.parseFloat(value);
+        Object devicePixelRatio = ((JavascriptExecutor)driver).executeScript("return window.devicePixelRatio");
+        float windowDPR = Float.parseFloat(devicePixelRatio.toString());
 
         Screenshot screenshot = new AShot()
                 .shootingStrategy(ShootingStrategies.viewportPasting(ShootingStrategies.scaling(windowDPR),1000))
