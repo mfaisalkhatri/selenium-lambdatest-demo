@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Selenium Grid demo">
+    <test name="Selenium Grid demo test on Chrome">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.seleniumgriddemo.LocalGridDemoTests">
+                <methods>
+                    <include name="testSearchPage"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Selenium Grid demo test on Firefox">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.seleniumgriddemo.LocalGridDemoTests">
+                <methods>
+                    <include name="testSearchPage"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Selenium Grid demo test on Edge">
+        <parameter name="browser" value="edge"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.seleniumgriddemo.LocalGridDemoTests">
+                <methods>
+                    <include name="testSearchPage"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
