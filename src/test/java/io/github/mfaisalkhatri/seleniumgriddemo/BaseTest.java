@@ -1,12 +1,6 @@
 package io.github.mfaisalkhatri.seleniumgriddemo;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.Duration;
-
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -14,10 +8,21 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
+
 public class BaseTest {
 
-    RemoteWebDriver driver;
+    private static final ThreadLocal<RemoteWebDriver> DRIVER = new ThreadLocal<>();
 
+    public RemoteWebDriver getDriver() {
+        return DRIVER.get();
+    }
+
+    private void setDriver(RemoteWebDriver remoteWebDriver) {
+        DRIVER.set(remoteWebDriver);
+    }
 
     @Parameters("browser")
     @BeforeClass
@@ -26,16 +31,16 @@ public class BaseTest {
             if (browser.equalsIgnoreCase("chrome")) {
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.setCapability("gsg:customcap", true);
-                driver = new RemoteWebDriver(new URL("http://localhost:4444"), chromeOptions);
+                setDriver(new RemoteWebDriver(new URL("http://localhost:4444"), chromeOptions));
 
             } else if (browser.equalsIgnoreCase("firefox")) {
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.setCapability("gsg:customcap", true);
-                driver = new RemoteWebDriver(new URL("http://localhost:4444"), firefoxOptions);
+                setDriver(new RemoteWebDriver(new URL("http://localhost:4444"), firefoxOptions));
 
             } else if (browser.equalsIgnoreCase("edge")) {
                 EdgeOptions edgeOptions = new EdgeOptions();
-                driver = new RemoteWebDriver(new URL("http://localhost:4444"), edgeOptions);
+                setDriver(new RemoteWebDriver(new URL("http://localhost:4444"), edgeOptions));
             } else {
                 throw new Error("Browser configuration is not defined!!");
             }
@@ -44,7 +49,7 @@ public class BaseTest {
             throw new RuntimeException(e);
         }
 
-        driver.manage()
+        getDriver().manage()
             .timeouts()
             .implicitlyWait(Duration.ofSeconds(20));
 
@@ -52,6 +57,6 @@ public class BaseTest {
 
     @AfterSuite
     public void tearDown() {
-        driver.quit();
+        getDriver().quit();
     }
 }
