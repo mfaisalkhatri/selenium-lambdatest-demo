@@ -9,7 +9,7 @@ import static org.testng.Assert.assertEquals;
 public class LocalGridDemoTests extends BaseTest {
 
     @Test
-    public void testSearchPage() {
+    public void testSearchProduct() {
         getDriver().get("https://ecommerce-playground.lambdatest.io/");
         WebElement searchBox = getDriver().findElement(By.name("search"));
 
