@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Selenium Grid demo" parallel="tests">
+    <test name="LambdaTest Grid demo test on Chrome">
+        <parameter name="platform" value="Windows 11"/>
+        <parameter name="browser" value="chrome"/>
+        <parameter name="browserVersion" value="125"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.lambdatestgriddemo.LambdaTestGridDemoTests">
+                <methods>
+                    <include name="testSearchProduct"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Selenium Grid demo test on Firefox">
+        <parameter name="platform" value="Windows 10"/>
+        <parameter name="browser" value="firefox"/>
+        <parameter name="browserVersion" value="126"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.lambdatestgriddemo.LambdaTestGridDemoTests">
+                <methods>
+                    <include name="testSearchProduct"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Selenium Grid demo test on Edge browser">
+        <parameter name="platform" value="Windows 11"/>
+        <parameter name="browser" value="edge"/>
+        <parameter name="browserVersion" value="125"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.lambdatestgriddemo.LambdaTestGridDemoTests">
+                <methods>
+                    <include name="testSearchProduct"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
