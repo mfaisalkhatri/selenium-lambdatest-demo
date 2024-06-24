@@ -1,16 +1,16 @@
 package io.github.mfaisalkhatri.seleniumgriddemo;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
+
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.Duration;
 
 public class BaseTest {
 
@@ -25,37 +25,36 @@ public class BaseTest {
     }
 
     @Parameters("browser")
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setup(String browser) {
         try {
             if (browser.equalsIgnoreCase("chrome")) {
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.setCapability("gsg:customcap", true);
+                chromeOptions.setCapability("se:name", "Test on Grid - Chrome");
                 setDriver(new RemoteWebDriver(new URL("http://localhost:4444"), chromeOptions));
 
             } else if (browser.equalsIgnoreCase("firefox")) {
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
-                firefoxOptions.setCapability("gsg:customcap", true);
+                firefoxOptions.setCapability("se:name", "Test on Grid - Firefox");
                 setDriver(new RemoteWebDriver(new URL("http://localhost:4444"), firefoxOptions));
 
             } else if (browser.equalsIgnoreCase("edge")) {
                 EdgeOptions edgeOptions = new EdgeOptions();
+                edgeOptions.setCapability("se:name", "Test on Grid - Edge");
                 setDriver(new RemoteWebDriver(new URL("http://localhost:4444"), edgeOptions));
             } else {
                 throw new Error("Browser configuration is not defined!!");
             }
 
         } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+            throw new Error("Error setting up browsers in Grid");
         }
-
         getDriver().manage()
             .timeouts()
             .implicitlyWait(Duration.ofSeconds(20));
-
     }
 
-    @AfterSuite
+    @AfterTest(alwaysRun = true)
     public void tearDown() {
         getDriver().quit();
     }
