@@ -10,6 +10,7 @@ public class LocalGridDemoTests extends BaseTest {
 
     @Test
     public void testSearchProduct() {
+
         getDriver().get("https://ecommerce-playground.lambdatest.io/");
         WebElement searchBox = getDriver().findElement(By.name("search"));
 

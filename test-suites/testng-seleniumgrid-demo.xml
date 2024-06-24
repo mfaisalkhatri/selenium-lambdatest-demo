@@ -6,7 +6,7 @@
         <classes>
             <class name="io.github.mfaisalkhatri.seleniumgriddemo.LocalGridDemoTests">
                 <methods>
-                    <include name="testSearchPage"/>
+                    <include name="testSearchProduct"/>
                 </methods>
             </class>
         </classes>
@@ -16,7 +16,7 @@
         <classes>
             <class name="io.github.mfaisalkhatri.seleniumgriddemo.LocalGridDemoTests">
                 <methods>
-                    <include name="testSearchPage"/>
+                    <include name="testSearchProduct"/>
                 </methods>
             </class>
         </classes>
@@ -26,7 +26,7 @@
         <classes>
             <class name="io.github.mfaisalkhatri.seleniumgriddemo.LocalGridDemoTests">
                 <methods>
-                    <include name="testSearchPage"/>
+                    <include name="testSearchProduct"/>
                 </methods>
             </class>
         </classes>
