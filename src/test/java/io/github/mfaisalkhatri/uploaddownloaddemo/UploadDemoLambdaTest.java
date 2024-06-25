@@ -18,7 +18,6 @@ import static org.testng.Assert.assertEquals;
 
 public class UploadDemoLambdaTest {
 
-
     private RemoteWebDriver driver;
     private String status = "failed";
 
