@@ -14,21 +14,25 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class FileDownloadTest {
 
     private WebDriver driver;
 
+    @Parameters("browser")
     @BeforeTest
-    public void setup() {
-        var chromePrefs = new HashMap<String, Object>();
-        chromePrefs.put("download.prompt_for_download", "false");
-        chromePrefs.put("download.default_directory", String.valueOf(Paths.get(System.getProperty("user.home"), "Downloads")));
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setExperimentalOption("prefs", chromePrefs);
+    public void setup(String browser) {
+        if(browser.equalsIgnoreCase("chrome")) {
+            var chromePrefs = new HashMap<String, Object>();
+            chromePrefs.put("download.prompt_for_download", "false");
+            chromePrefs.put("download.default_directory", String.valueOf(Paths.get(System.getProperty("user.home"), "Downloads")));
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.setExperimentalOption("prefs", chromePrefs);
 
-        driver = new ChromeDriver(chromeOptions);
+            driver = new ChromeDriver(chromeOptions);
+        } else if ()
         driver.manage()
             .timeouts()
             .implicitlyWait(Duration.ofSeconds(20));
