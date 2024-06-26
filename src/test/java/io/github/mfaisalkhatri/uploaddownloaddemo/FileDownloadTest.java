@@ -12,6 +12,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
@@ -24,7 +27,7 @@ public class FileDownloadTest {
     @Parameters("browser")
     @BeforeTest
     public void setup(String browser) {
-        if(browser.equalsIgnoreCase("chrome")) {
+        if (browser.equalsIgnoreCase("chrome")) {
             var chromePrefs = new HashMap<String, Object>();
             chromePrefs.put("download.prompt_for_download", "false");
             chromePrefs.put("download.default_directory", String.valueOf(Paths.get(System.getProperty("user.home"), "Downloads")));
@@ -32,7 +35,17 @@ public class FileDownloadTest {
             chromeOptions.setExperimentalOption("prefs", chromePrefs);
 
             driver = new ChromeDriver(chromeOptions);
-        } else if ()
+        } else if (browser.equalsIgnoreCase("firefox")) {
+            FirefoxProfile firefoxProfile = new FirefoxProfile();
+            firefoxProfile.setPreference("browser.helperApps.neverAsk.openFile", "application/octet-stream");
+            firefoxProfile.setPreference("browser.download.useDownloadDir", true);
+            FirefoxOptions firefoxOptions = new FirefoxOptions();
+            firefoxOptions.setProfile(firefoxProfile);
+            driver = new FirefoxDriver(firefoxOptions);
+        } else {
+            throw new Error("Browser configuration is not set!");
+        }
+
         driver.manage()
             .timeouts()
             .implicitlyWait(Duration.ofSeconds(20));
