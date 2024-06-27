@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="File Download Test suite">
+    <test name="Selenium playground file download demo on chrome" enabled="false">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.uploaddownloaddemo.FileDownloadTest">
+                <methods>
+                    <include name="testFileDownload"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Selenium playground file download demo on firefox" enabled="false">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.uploaddownloaddemo.FileDownloadTest">
+                <methods>
+                    <include name="testFileDownload"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Selenium playground file download demo on LambdaTest Chrome">
+        <parameter name="platform" value="Windows 11"/>
+        <parameter name="browser" value="chrome"/>
+        <parameter name="browserVersion" value="latest"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.uploaddownloaddemo.FileDownloadCloudTest">
+                <methods>
+                    <include name="testFileDownload"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>
