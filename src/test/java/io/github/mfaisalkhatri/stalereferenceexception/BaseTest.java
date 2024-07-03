@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public class BaseTest {
 
-    RemoteWebDriver driver;
+    protected static RemoteWebDriver driver;
 
     @BeforeTest
     public void setup() {
