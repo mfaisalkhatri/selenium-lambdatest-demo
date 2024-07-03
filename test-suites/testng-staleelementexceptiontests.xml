@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Stale Element Reference Demo">
+    <test name="Stale Element Reference Demo test" enabled="false">
+        <classes>
+            <class name="io.github.mfaisalkhatri.stalereferenceexception.TestExampleStaleElementReferenceException" >
+                <methods>
+                    <include name="createStaleElementReferenceException"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Stale Element Reference Demo with While Loop" enabled="false">
+        <classes>
+            <class name="io.github.mfaisalkhatri.stalereferenceexception.TestExampleStaleElementReferenceException">
+                <methods>
+                    <include name="testRetryUsingWhileLoop_TryCatch"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Stale Element Reference Demo with For Loop" enabled="false">
+        <classes>
+            <class name="io.github.mfaisalkhatri.stalereferenceexception.TestExampleStaleElementReferenceException">
+                <methods>
+                    <include name="testRetryUsingForLoopToHandleStaleException"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Stale Element Reference Demo with ExpectedConditions" enabled="true">
+        <classes>
+            <class name="io.github.mfaisalkhatri.stalereferenceexception.TestExampleStaleElementReferenceException">
+                <methods>
+                    <include name="testChainExpectedConditionsToHandleStaleException"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
