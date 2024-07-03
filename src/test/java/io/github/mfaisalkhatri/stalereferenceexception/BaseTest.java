@@ -1,9 +1,10 @@
 package io.github.mfaisalkhatri.stalereferenceexception;
 
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 
 import java.net.MalformedURLException;
@@ -15,21 +16,20 @@ public class BaseTest {
 
     protected static RemoteWebDriver driver;
 
-    @BeforeTest
+    @BeforeClass
     public void setup() {
 
-//        String USERNAME = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
-//        String ACCESS_KEY = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
-//        String GRID_URL = "@hub.lambdatest.com/wd/hub";
-//
-//        try {
-//            this.driver = new RemoteWebDriver(new URL("http://" + USERNAME + ":" + ACCESS_KEY + GRID_URL), getChromeOptions());
-//        } catch (final MalformedURLException e) {
-//            System.out.println("Could not start the remote session on LambdaTest cloud grid");
-//        }
-        this.driver = new ChromeDriver();
+        String USERNAME = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
+        String ACCESS_KEY = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
+        String GRID_URL = "@hub.lambdatest.com/wd/hub";
+
+        try {
+            this.driver = new RemoteWebDriver(new URL("http://" + USERNAME + ":" + ACCESS_KEY + GRID_URL), getChromeOptions());
+        } catch (final MalformedURLException e) {
+            System.out.println("Could not start the remote session on LambdaTest cloud grid");
+        }
         this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        this.driver.get("https://www.lambdatest.com/selenium-playground/");
+        driver.get("https://www.lambdatest.com/selenium-playground/");
     }
 
     public ChromeOptions getChromeOptions() {
@@ -52,7 +52,7 @@ public class BaseTest {
 
     }
 
-    @AfterTest
+    @AfterClass
     public void tearDown() {
         this.driver.quit();
     }
