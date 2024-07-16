@@ -31,7 +31,7 @@ public class HardAssertions {
         this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
     }
 
-    @Test(enabled = false)
+    @Test
     public void testAssertEquals() {
 
         driver.get("https://www.lambdatest.com/selenium-playground/");
@@ -39,7 +39,7 @@ public class HardAssertions {
         Assert.assertEquals(pageHeader, "Selenium Playground", "Page header mismatch");
     }
 
-    @Test(enabled = false)
+    @Test
     public void testAssertNotEquals() {
 
         driver.get("https://www.lambdatest.com/selenium-playground/");
@@ -50,7 +50,7 @@ public class HardAssertions {
         Assert.assertNotEquals(homePageHeader,ajaxFormHeader);
     }
 
-    @Test(enabled = false)
+    @Test
     public void testAssertTrue() {
         driver.get("https://www.lambdatest.com/selenium-playground/checkbox-demo");
         WebElement checkboxOne = driver.findElement(By.id("isAgeSelected"));
@@ -58,7 +58,7 @@ public class HardAssertions {
         Assert.assertTrue(checkboxOne.isSelected());
     }
 
-    @Test(enabled = false)
+    @Test
     public void testAssertFalse() {
         driver.get("https://www.lambdatest.com/selenium-playground/radiobutton-demo");
         WebElement maleRadioBtn = driver.findElement(By.cssSelector("input[value='Male'][name='optradio']"));
