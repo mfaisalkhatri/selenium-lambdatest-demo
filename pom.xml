@@ -14,10 +14,10 @@
         <selenium-java.version>4.22.0</selenium-java.version>
         <testng.version>7.10.2</testng.version>
         <webdrivermanager.version>5.9.1</webdrivermanager.version>
-        <datafaker.version>2.2.2</datafaker.version>
+        <datafaker.version>2.3.1</datafaker.version>
         <ashot.version>1.5.4</ashot.version>
         <maven.compiler.version>3.13.0</maven.compiler.version>
-        <surefire-version>3.2.5</surefire-version>
+        <surefire-version>3.3.1</surefire-version>
         <java.release.version>17</java.release.version>
         <maven.source.encoding>UTF-8</maven.source.encoding>
         <suite-xml>test-suites/testng.xml</suite-xml>
