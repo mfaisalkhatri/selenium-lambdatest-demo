@@ -2,14 +2,19 @@
 
 ## :question: What is this Repository about?
 
-- This repo contains example code for the following : 
-- [Input form page](https://www.lambdatest.com/selenium-playground/input-form-demo) on [LambdaTest's Selenium Playground](https://www.lambdatest.com/selenium-playground/)
-- [Login Page](https://ecommerce-playground.lambdatest.io/index.php?route=account/login) on [LambdaTest ECommerce Website](https://ecommerce-playground.lambdatest.io/index.php)
+- This repo contains demo test automation code using the following websites: 
+- [LambdaTest Selenium Playground](https://www.lambdatest.com/selenium-playground/)
+- [LambdaTest E-Commerce Playground Website](https://ecommerce-playground.lambdatest.io/index.php)
 - Maven is used as build tool in this project
 - TestNG is used as testing framework for organizing and running tests and performing Assertions
 - Tests are run on Chrome browser using [LambdaTest Cloud grid](https://www.lambdatest.com/)
+- For parallel execution, tests are run on Chrome, Firefox and Edge browsers using LambdaTest cloud grid
 
 ## Running the Tests
+
+### Prerequisite
+- Create an account on [LambdaTest](http://www.lambdatest.com/?fp_ref=faisal58)
+- Use the LambdaTest Username and Password for running the tests by saving the values as environment variables
 
 1. To run the test from command line use the following command:
 
@@ -27,14 +32,28 @@
 
 ## :writing_hand: Blog Links
 
-- [Selenium Manager in Selenium 4.11.0: New Features and Improvements](https://medium.com/@iamfaisalkhatri/selenium-manager-in-selenium-4-11-0-new-features-and-improvements-lambdatest-761593a7f009)
 - [Selenium 4 WebDriver Hierarchy: A Detailed Explanation](https://medium.com/@iamfaisalkhatri/selenium-4-webdriver-hierarchy-a-detailed-explanation-lambdatest-18771c5fd3e9)
+- [Different Types of Locators in Selenium WebDriver](https://www.lambdatest.com/blog/locators-in-selenium-webdriver-with-examples/)
 - [Understanding CSS Selectors in Selenium](https://medium.com/@iamfaisalkhatri/understanding-css-selectors-in-selenium-pcloudy-blog-3e4b09672264)
+- [How To Automate Login Page Using Selenium WebDriver](https://www.lambdatest.com/blog/automate-login-page-using-selenium-webdriver/)
+- [How To Take Full Page Screenshots In Selenium WebDriver](https://www.lambdatest.com/blog/screenshots-with-selenium-webdriver/)
+- [Selenium Grid Tutorial: Parallel Testing Guide with Examples](https://www.lambdatest.com/blog/selenium-grid-setup-tutorial/)
+- [How to Use Breakpoints for Debugging in Selenium WebDriver](https://www.lambdatest.com/blog/how-to-use-breakpoints-for-debugging-in-selenium-webdriver/)
+- [How to Create TestNG.xml File in Eclipse](https://www.lambdatest.com/blog/create-testng-xml-file-execute-parallel-testing/)
+- [How to Use Thread.sleep() in Selenium](https://www.lambdatest.com/blog/threadsleep-java-selenium/)
+- [How to Handle Shadow Root in Selenium Java](https://www.lambdatest.com/blog/shadow-root-in-selenium-java/)
+- [Handling “Element is Not Clickable at Point” Exception in Selenium](https://www.lambdatest.com/blog/element-is-not-clickable-at-point-exception/)
+- [How to Click Button in Selenium: A Complete Guide](https://www.lambdatest.com/blog/selenium-click-button-with-examples/)
+- [assertTrue() in Java: A Complete Tutorial](https://www.lambdatest.com/blog/asserttrue-in-java/)
+- [How to Use @FindBy Annotation in Selenium Java](https://www.lambdatest.com/blog/findby-annotation-selenium-java/)
+- [How to Handle ElementClickInterceptedException in Selenium Java](https://www.lambdatest.com/blog/elementclickinterceptedexception-in-selenium-java/)
+- [Thread.sleep() Method in Java – Complete Tutorial With Example](https://www.lambdatest.com/blog/sleep-java-method/)
+- [Selenium Manager in Selenium 4.11.0: New Features and Improvements](https://medium.com/@iamfaisalkhatri/selenium-manager-in-selenium-4-11-0-new-features-and-improvements-lambdatest-761593a7f009)
 - [End to End testing using Selenium WebDriver and Java](https://medium.com/@iamfaisalkhatri/end-to-end-testing-using-selenium-webdriver-and-java-4ff8667716ca)
 - [Writing Selenium Web Automation tests in Fluent way!](https://medium.com/@iamfaisalkhatri/writing-selenium-web-automation-tests-in-fluent-way-864db95ee67a)
 - [How To Automate Shadow DOM In Selenium WebDriver?](https://medium.com/@iamfaisalkhatri/how-to-automate-shadow-dom-in-selenium-webdriver-lambdatest-blog-3884698b995)
 - [How to setup GitHub Actions for Java with Maven project?](https://mfaisalkhatri.github.io/2022/04/26/githubactions-for-java-maven-project/)
-- [How to Automate ServiceNOw with Selenium](https://medium.com/@iamfaisalkhatri/how-to-automate-servicenow-with-selenium-511e41172161)
+- [How to Automate ServiceNow with Selenium](https://medium.com/@iamfaisalkhatri/how-to-automate-servicenow-with-selenium-511e41172161)
 - [Cross browser testing in Selenium WebDriver](https://medium.com/@iamfaisalkhatri/cross-browser-testing-in-selenium-webdriver-pcloudy-blog-46e9d70fa13a)
 
 ### :thought_balloon: Checkout the blogs related to Testing on
