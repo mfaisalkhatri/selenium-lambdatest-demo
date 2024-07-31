@@ -82,4 +82,18 @@ public class ExpectedConditionsDemoTest extends BaseTest {
         iFrameEditor.sendKeys(text);
         System.out.println("Text entered in iFrame");
     }
+
+    @Test
+    public void testElementToBeSelected() {
+        driver.get("https://www.lambdatest.com/selenium-playground/checkbox-demo");
+        WebElement checkAllBtn = driver.findElement(By.id("box"));
+        checkAllBtn.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
+        WebElement checkboxOne = driver.findElement(By.id("ex1-check1"));
+        assertTrue(wait.until(ExpectedConditions.elementToBeSelected(checkboxOne)));
+
+        WebElement checkboxTwo = driver.findElement(By.id("ex1-check2"));
+        assertTrue(wait.until(ExpectedConditions.elementToBeSelected(checkboxTwo)));
+    }
 }
