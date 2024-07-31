@@ -2,8 +2,10 @@ package io.github.mfaisalkhatri.expectedconditionsdemo;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
@@ -28,6 +30,7 @@ public class ExpectedConditionsDemoTest extends BaseTest {
         String messageText = driver.findElement(By.id("message")).getText();
         assertEquals(messageText, inputMessage);
     }
+
 
 
     @Test
@@ -95,5 +98,30 @@ public class ExpectedConditionsDemoTest extends BaseTest {
 
         WebElement checkboxTwo = driver.findElement(By.id("ex1-check2"));
         assertTrue(wait.until(ExpectedConditions.elementToBeSelected(checkboxTwo)));
+    }
+
+    @Test
+    public void testCustomExpectedCondition() {
+        driver.get("https://www.lambdatest.com/selenium-playground/table-sort-search-demo");
+        WebElement searchBox = driver.findElement(By.cssSelector("#example_filter input"));
+        searchBox.sendKeys("Bennet");
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                WebElement table = driver.findElement(By.id("example"));
+                if (table.isDisplayed()) {
+                    WebElement tableRow = driver.findElement(By.cssSelector("#example tbody tr:nth-child(1)"));
+                    WebElement nameValue = tableRow.findElement(By.cssSelector("td:nth-child(1)"));
+                    if (nameValue.isDisplayed() && nameValue.getText().contains("Bennet")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                return false;
+            }
+        });
     }
 }
