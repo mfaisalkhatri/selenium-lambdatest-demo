@@ -72,6 +72,17 @@ public class TestMouseActions {
 
     }
 
+    @Test
+    public void testDoubleClickAction () {
+        driver.get("https://unixpapa.com/js/testmouse.html");
+        WebElement clickHereText = driver.findElement(By.linkText("click here to test"));
+        Actions actions = new Actions(driver);
+        actions.doubleClick(clickHereText).build().perform();
+
+
+
+    }
+
     @AfterTest
     public void tearDown() {
         this.driver.quit();
