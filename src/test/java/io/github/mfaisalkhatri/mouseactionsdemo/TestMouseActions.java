@@ -17,6 +17,7 @@ import java.time.Duration;
 import java.util.HashMap;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class TestMouseActions {
 
@@ -79,8 +80,10 @@ public class TestMouseActions {
         Actions actions = new Actions(driver);
         actions.doubleClick(clickHereText).build().perform();
 
+        WebElement textBox = driver.findElement(By.tagName("textarea"));
+        String textBoxValue = textBox.getAttribute("value");
 
-
+        assertTrue(textBoxValue.contains("dblclick"));
     }
 
     @AfterTest
