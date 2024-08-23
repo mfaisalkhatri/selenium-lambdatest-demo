@@ -1,5 +1,6 @@
 package io.github.mfaisalkhatri.mouseactionsdemo;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,6 +23,7 @@ import static org.testng.Assert.assertTrue;
 public class TestMouseActions {
 
     private RemoteWebDriver driver;
+    private String status = "failed";
 
     @BeforeTest
     public void setup() {
@@ -70,7 +72,8 @@ public class TestMouseActions {
 
         String pageHeader = driver.findElement(By.cssSelector("#entry_212456 h1")).getText();
         assertEquals(pageHeader, "Search - iPhone");
-
+        
+        this.status = "passed";
     }
 
     @Test
@@ -84,10 +87,29 @@ public class TestMouseActions {
         String textBoxValue = textBox.getAttribute("value");
 
         assertTrue(textBoxValue.contains("dblclick"));
+        this.status = "passed";
+    }
+
+    @Test
+    public void testContextClickAction() {
+        driver.get("https://www.lambdatest.com/selenium-playground/context-menu");
+        WebElement contextClickBox = driver.findElement(By.id("hot-spot"));
+        Actions actions = new Actions(driver);
+        actions.contextClick(contextClickBox).build().perform();
+
+        Alert alert = driver.switchTo().alert();
+
+        String alertText = alert.getText();
+        assertEquals(alertText, "You selected a context menu");
+
+        alert.accept();
+        this.status = "passed";
     }
 
     @AfterTest
     public void tearDown() {
+
+        this.driver.executeScript("lambda-status=" + this.status);
         this.driver.quit();
     }
 }
