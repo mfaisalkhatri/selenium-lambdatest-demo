@@ -24,15 +24,14 @@ public class TestMouseActions {
 
     @BeforeTest
     public void setup() {
-//        final String userName = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
-//        final String accessKey = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
-//        final String gridUrl = "@hub.lambdatest.com/wd/hub";
-//        try {
-//            this.driver = new RemoteWebDriver(new URL("http://" + userName + ":" + accessKey + gridUrl), getChromeOptions());
-//        } catch (final MalformedURLException e) {
-//            System.out.println("Could not start the remote session on LambdaTest cloud grid");
-//        }
-        driver = new ChromeDriver();
+        final String userName = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
+        final String accessKey = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
+        final String gridUrl = "@hub.lambdatest.com/wd/hub";
+        try {
+            this.driver = new RemoteWebDriver(new URL("http://" + userName + ":" + accessKey + gridUrl), getChromeOptions());
+        } catch (final MalformedURLException e) {
+            System.out.println("Could not start the remote session on LambdaTest cloud grid");
+        }
         this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
     }
 
@@ -117,14 +116,16 @@ public class TestMouseActions {
         Actions actions = new Actions(driver);
         actions.clickAndHold(slider).moveByOffset(-145,0).release().build().perform();
         String outputResult = driver.findElement(By.cssSelector("output#range")).getText();
-        assertEquals(outputResult, "20");
 
+        assertEquals(outputResult, "20");
+        this.status = "passed";
     }
+    
 
     @AfterTest
     public void tearDown() {
 
-        //this.driver.executeScript("lambda-status=" + this.status);
+        this.driver.executeScript("lambda-status=" + this.status);
         this.driver.quit();
     }
 }
