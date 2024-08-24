@@ -1,9 +1,6 @@
 package io.github.mfaisalkhatri.mouseactionsdemo;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
@@ -27,15 +24,16 @@ public class TestMouseActions {
 
     @BeforeTest
     public void setup() {
-        final String userName = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
-        final String accessKey = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
-        final String gridUrl = "@hub.lambdatest.com/wd/hub";
-        try {
-            this.driver = new RemoteWebDriver(new URL("http://" + userName + ":" + accessKey + gridUrl), getChromeOptions());
-        } catch (final MalformedURLException e) {
-            System.out.println("Could not start the remote session on LambdaTest cloud grid");
-        }
-        this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+//        final String userName = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
+//        final String accessKey = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
+//        final String gridUrl = "@hub.lambdatest.com/wd/hub";
+//        try {
+//            this.driver = new RemoteWebDriver(new URL("http://" + userName + ":" + accessKey + gridUrl), getChromeOptions());
+//        } catch (final MalformedURLException e) {
+//            System.out.println("Could not start the remote session on LambdaTest cloud grid");
+//        }
+        driver = new ChromeDriver();
+        this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
     }
 
     public ChromeOptions getChromeOptions() {
@@ -106,10 +104,27 @@ public class TestMouseActions {
         this.status = "passed";
     }
 
+    @Test
+    public void testSliderAction() {
+        driver.get("https://www.lambdatest.com/selenium-playground/drag-drop-range-sliders-demo");
+        WebElement slider = driver.findElement(By.cssSelector("input[type='range'][value='5']"));
+        Point point = slider.getLocation();
+        int xcord = point.getX();
+        int ycord = point.getY();
+        System.out.println("x: " + xcord);
+        System.out.println("y: " + ycord);
+
+        Actions actions = new Actions(driver);
+        actions.clickAndHold(slider).moveByOffset(-145,0).release().build().perform();
+        String outputResult = driver.findElement(By.cssSelector("output#range")).getText();
+        assertEquals(outputResult, "20");
+
+    }
+
     @AfterTest
     public void tearDown() {
 
-        this.driver.executeScript("lambda-status=" + this.status);
+        //this.driver.executeScript("lambda-status=" + this.status);
         this.driver.quit();
     }
 }
