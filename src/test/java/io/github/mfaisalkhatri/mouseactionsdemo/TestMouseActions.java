@@ -137,6 +137,22 @@ public class TestMouseActions {
         this.status = "passed";
     }
 
+    @Test
+    public void testDragDropApproachTwo() {
+        driver.get("https://www.lambdatest.com/selenium-playground/drag-and-drop-demo");
+
+        WebElement draggable = driver.findElement(By.cssSelector("#todrag > span:nth-child(2)"));
+        WebElement dropZone = driver.findElement(By.id("mydropzone"));
+
+        Actions actions = new Actions(driver);
+        actions.clickAndHold(draggable).moveToElement(dropZone).release().build().perform();
+
+        String droppedItemList = driver.findElement(By.cssSelector("#droppedlist span")).getText();
+        assertEquals(droppedItemList, "Draggable 1");
+
+        this.status = "passed";
+    }
+    
     @AfterTest
     public void tearDown() {
 
