@@ -51,14 +51,7 @@ public class TestMouseActions {
 
         return browserOptions;
     }
-
-    @Test
-    public void testSampleCodeForPerformMethod() {
-        WebDriver driver = new ChromeDriver();
-        Actions actions = new Actions(driver);
-        actions.perform();
-    }
-
+    
     @Test
     public void testMouseClickAction() {
         driver.get("https://ecommerce-playground.lambdatest.io/");
