@@ -13,6 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -152,7 +153,40 @@ public class TestMouseActions {
 
         this.status = "passed";
     }
-    
+
+    @Test
+    public void testDragDropApproachThree() {
+        driver.get("https://www.lambdatest.com/selenium-playground/drag-and-drop-demo");
+
+        WebElement draggable = driver.findElement(By.cssSelector("#todrag > span:nth-child(2)"));
+
+        Actions actions = new Actions(driver);
+        actions.dragAndDropBy(draggable, 477, 0).build().perform();
+
+        String droppedItemList = driver.findElement(By.cssSelector("#droppedlist span")).getText();
+        assertEquals(droppedItemList, "Draggable 1");
+
+        this.status = "passed";
+    }
+
+    @Test
+    public void testMouseHover() {
+        driver.get("https://ecommerce-playground.lambdatest.io/");
+        WebElement myAccountLink = driver.findElement(By.cssSelector("#widget-navbar-217834 > ul > li:nth-child(6) > a"));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(myAccountLink).build().perform();
+
+        WebElement loginLink = driver.findElement(By.linkText("Login"));
+        loginLink.click();
+
+        List<WebElement> pageHeaders = driver.findElements(By.tagName("h2"));
+        String loginHeader = pageHeaders.get(1).getText();
+        assertEquals(loginHeader, "Returning Customer");
+
+        this.status = "passed";
+
+    }
+
     @AfterTest
     public void tearDown() {
 
