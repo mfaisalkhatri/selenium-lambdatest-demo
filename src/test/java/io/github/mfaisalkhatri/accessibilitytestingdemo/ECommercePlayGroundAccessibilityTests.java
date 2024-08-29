@@ -32,7 +32,7 @@ public class ECommercePlayGroundAccessibilityTests {
         } catch (final MalformedURLException e) {
             System.out.println("Could not start the remote session on LambdaTest cloud grid");
         }
-        this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     public ChromeOptions getChromeOptions() {
