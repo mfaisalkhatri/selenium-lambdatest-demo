@@ -1,7 +1,9 @@
 package io.github.mfaisalkhatri.datepickerdemo;
 
 import io.github.mfaisalkhatri.datepickerdemo.pages.JQueryDatePickerPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterTest;
@@ -48,7 +50,7 @@ public class TestDatePicker {
     }
 
     @Test
-    public void testJQueryDatePickerSelection() throws InterruptedException {
+    public void testJQueryDatePickerSelection() {
         driver.get("https://www.lambdatest.com/selenium-playground/jquery-date-picker-demo");
 
         JQueryDatePickerPage jQueryDatePickerPage = new JQueryDatePickerPage(driver);
@@ -64,4 +66,19 @@ public class TestDatePicker {
         driver.quit();
     }
 
+
+    @Test
+    public void testJQueryDatePickerUsingSendKeys() {
+        driver.get("https://www.lambdatest.com/selenium-playground/jquery-date-picker-demo");
+        WebElement fromDateField = driver.findElement(By.id("from"));
+        fromDateField.sendKeys("09/11/2024");
+        String fromDateValue = driver.findElement(By.id("from")).getAttribute("value");
+        assertEquals(fromDateValue, "09/11/2024");
+
+    }
+
+    @Test
+    public void testBootStrapDatePickerSelection() {
+
+    }
 }
