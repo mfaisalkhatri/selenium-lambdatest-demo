@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Testng.xml demo">
+    <test name="DatePicker Selection tests">
+        <classes>
+            <class name="io.github.mfaisalkhatri.datepickerdemo.TestDatePicker">
+                <methods>
+                    <include name="testJQueryDatePickerSelection"/>
+                    <include name="testJQueryDatePickerUsingSendKeys"/>
+                    <include name="testBootStrapDatePickerSelection"/>
+                    <include name="testBootStrapDateStartEndDateSelectionUsingJS"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

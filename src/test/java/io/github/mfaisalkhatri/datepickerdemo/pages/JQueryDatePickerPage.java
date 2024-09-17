@@ -25,10 +25,6 @@ public class JQueryDatePickerPage {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("ui-datepicker-div")));
     }
 
-    private WebElement toDateField() {
-        return driver.findElement(By.id("to"));
-    }
-
     private void selectMonth(String monthName) {
         WebElement monthField = driver.findElement(By.cssSelector(".ui-datepicker-month"));
         monthField.click();
@@ -66,7 +62,4 @@ public class JQueryDatePickerPage {
     public String getToDateValue() {
         return driver.findElement(By.id("to")).getAttribute("value");
     }
-
-
-
 }

@@ -38,12 +38,14 @@ public class TestDatePicker {
     public ChromeOptions getChromeOptions() {
         final var browserOptions = new ChromeOptions();
         browserOptions.setPlatformName("Windows 10");
-        browserOptions.setBrowserVersion("126.0");
+        browserOptions.setBrowserVersion("128.0");
         final HashMap<String, Object> ltOptions = new HashMap<String, Object>();
-        ltOptions.put("project", "Selenium Assertions demo");
+        ltOptions.put("project", "Selenium DatePicker demo");
         ltOptions.put("build", "LambdaTest Selenium Playground");
-        ltOptions.put("name", "Datepicker test with Selenium Java");
+        ltOptions.put("name", "Select Date test with Selenium Java");
         ltOptions.put("w3c", true);
+        ltOptions.put("visual", true);
+        ltOptions.put("video", true);
         ltOptions.put("plugin", "java-testNG");
 
         browserOptions.setCapability("LT:Options", ltOptions);
@@ -87,20 +89,20 @@ public class TestDatePicker {
     }
 
     @Test
-    public void testBootStrapDateFromToDateSelectionUsingJS() {
+    public void testBootStrapDateStartEndDateSelectionUsingJS() {
         driver.get("https://www.lambdatest.com/selenium-playground/bootstrap-date-picker-demo");
 
-        WebElement fromDateField = driver.findElement(By.cssSelector("#datepicker input:first-child"));
+        WebElement startDateField = driver.findElement(By.cssSelector("#datepicker input:first-child"));
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].setAttribute('value', '26/09/2024')", fromDateField);
-        String fromDateFieldValue = fromDateField.getAttribute("value");
+        js.executeScript("arguments[0].setAttribute('value', '26/09/2024')", startDateField);
+        String fromDateFieldValue = startDateField.getAttribute("value");
         assertEquals(fromDateFieldValue, "26/09/2024");
 
-        WebElement toDateField = driver.findElement(By.cssSelector("#datepicker input:last-child"));
-        js.executeScript("arguments[0].setAttribute('value', '04/10/2024')", toDateField);
+        WebElement endDateField = driver.findElement(By.cssSelector("#datepicker input:last-child"));
+        js.executeScript("arguments[0].setAttribute('value', '04/10/2024')", endDateField);
 
-        String toDateFieldValue = toDateField.getAttribute("value");
+        String toDateFieldValue = endDateField.getAttribute("value");
         assertEquals(toDateFieldValue, "04/10/2024");
         this.status="passed";
     }
