@@ -34,7 +34,13 @@
 
 - [Selenium 4 WebDriver Hierarchy: A Detailed Explanation](https://medium.com/@iamfaisalkhatri/selenium-4-webdriver-hierarchy-a-detailed-explanation-lambdatest-18771c5fd3e9)
 - [Different Types of Locators in Selenium WebDriver](https://www.lambdatest.com/blog/locators-in-selenium-webdriver-with-examples/)
+- [ExpectedConditions In Selenium: Types And Examples](https://www.lambdatest.com/blog/expected-conditions-in-selenium-examples/)
 - [Understanding CSS Selectors in Selenium](https://medium.com/@iamfaisalkhatri/understanding-css-selectors-in-selenium-pcloudy-blog-3e4b09672264)
+- [Selenium Pagination Tutorial: How to Handle Page Navigation](https://www.lambdatest.com/blog/selenium-pagination/)
+- [How to Use Assert and Verify in Selenium](https://www.lambdatest.com/blog/assert-and-verify-in-selenium-webdriver/)
+- [How to Handle File Upload in Selenium](https://www.lambdatest.com/blog/how-to-download-upload-files-using-selenium-with-java/)
+- [How to Handle StaleElementReferenceException in Selenium](https://www.lambdatest.com/blog/handling-stale-element-exceptions-in-selenium-java/)
+- [How to Handle Mouse Actions in Selenium](https://www.lambdatest.com/blog/perform-mouse-actions-in-selenium-webdriver/)
 - [How To Automate Login Page Using Selenium WebDriver](https://www.lambdatest.com/blog/automate-login-page-using-selenium-webdriver/)
 - [How To Take Full Page Screenshots In Selenium WebDriver](https://www.lambdatest.com/blog/screenshots-with-selenium-webdriver/)
 - [Selenium Grid Tutorial: Parallel Testing Guide with Examples](https://www.lambdatest.com/blog/selenium-grid-setup-tutorial/)
