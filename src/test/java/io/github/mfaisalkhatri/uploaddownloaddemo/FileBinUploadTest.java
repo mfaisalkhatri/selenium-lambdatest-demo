@@ -1,6 +1,7 @@
 package io.github.mfaisalkhatri.uploaddownloaddemo;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,6 +13,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
@@ -40,7 +43,7 @@ public class FileBinUploadTest {
             .implicitlyWait(Duration.ofSeconds(20));
     }
 
-    @Test
+    @Test(enabled = false)
     public void testFileUpload() {
 
         driver.get ("https://filebin.net/");
@@ -52,6 +55,19 @@ public class FileBinUploadTest {
         ;
         assertEquals (fileNameText, fileName);
 
+    }
+
+    @Test
+    public void testUploadFileForPlagiarismCheck() {
+        driver.get ("https://smallseotools.com/plagiarism-checker/");
+        WebElement attachFile = driver.findElement (By.cssSelector ("div #fileUpload"));
+        attachFile.sendKeys ("/Users/faisalkhatri/Blogs/file_upload_download/samplepdf.pdf");
+
+        WebDriverWait wait = new WebDriverWait (driver,Duration.ofSeconds (20));
+        wait.until (ExpectedConditions.invisibilityOfElementLocated (By.cssSelector ("#loader_con11 p")));
+
+        String wordsCount = driver.findElement (By.cssSelector ("span#count_")).getText ();
+        assertTrue (Integer.parseInt (wordsCount) > 0);
     }
 
     private ChromeOptions getChromeOptions(String browserVersion, String platform) {

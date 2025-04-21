@@ -40,7 +40,8 @@
         <classes>
             <class name="io.github.mfaisalkhatri.uploaddownloaddemo.FileBinUploadTest">
                 <methods>
-                    <include name="testFileUpload"/>
+                    <exclude name="testFileUpload"/>
+                    <include name="testUploadFileForPlagiarismCheck"/>
                 </methods>
             </class>
         </classes>
