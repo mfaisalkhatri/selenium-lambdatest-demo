@@ -38,9 +38,9 @@
         <parameter name="browser" value="chrome"/>
         <parameter name="browserVersion" value="latest"/>
         <classes>
-            <class name="io.github.mfaisalkhatri.uploaddownloaddemo.FileBinUploadTest">
+            <class name="io.github.mfaisalkhatri.uploaddownloaddemo.FileUploadTest">
                 <methods>
-                    <exclude name="testFileUpload"/>
+                    <include name="testFileUpload"/>
                     <include name="testUploadFileForPlagiarismCheck"/>
                 </methods>
             </class>

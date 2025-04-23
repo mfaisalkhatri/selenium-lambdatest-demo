@@ -20,9 +20,10 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class FileBinUploadTest {
+public class FileUploadTest {
 
     private RemoteWebDriver driver;
+    private String status = "failed";
 
     @BeforeTest
     @Parameters ({ "browser", "browserVersion", "platform" })
@@ -43,18 +44,16 @@ public class FileBinUploadTest {
             .implicitlyWait(Duration.ofSeconds(20));
     }
 
-    @Test(enabled = false)
+    @Test()
     public void testFileUpload() {
-
         driver.get ("https://filebin.net/");
-        WebElement chooseFile = driver.findElement (By.id ("fileField"));
+        WebElement selectFileToUploadButton = driver.findElement (By.id ("fileField"));
         String fileName = "file_example_JPG_100kB.jpg";
-        chooseFile.sendKeys ("/Users/faisalkhatri/Blogs/file_upload_download/" + fileName);
+        selectFileToUploadButton.sendKeys ("/Users/faisalkhatri/Blogs/file_upload_download/" + fileName);
         WebElement tableRow = driver.findElement (By.cssSelector ("table > tbody > tr"));
         String fileNameText = tableRow.findElement (By.cssSelector ("td:nth-child(1) > a")).getText ();
-        ;
         assertEquals (fileNameText, fileName);
-
+        this.status = "passed";
     }
 
     @Test
@@ -68,6 +67,7 @@ public class FileBinUploadTest {
 
         String wordsCount = driver.findElement (By.cssSelector ("span#count_")).getText ();
         assertTrue (Integer.parseInt (wordsCount) > 0);
+        this.status = "passed";
     }
 
     private ChromeOptions getChromeOptions(String browserVersion, String platform) {
@@ -94,6 +94,7 @@ public class FileBinUploadTest {
 
     @AfterTest
     public void tearDown() {
+        this.driver.executeScript("lambda-status=" + this.status);
         driver.quit();
     }
 }
