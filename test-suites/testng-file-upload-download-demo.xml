@@ -21,7 +21,7 @@
             </class>
         </classes>
     </test>
-    <test name="Selenium playground file download demo on LambdaTest Chrome">
+    <test name="Selenium playground file download demo on LambdaTest Chrome" enabled="false">
         <parameter name="platform" value="Windows 11"/>
         <parameter name="browser" value="chrome"/>
         <parameter name="browserVersion" value="latest"/>
@@ -29,6 +29,19 @@
             <class name="io.github.mfaisalkhatri.uploaddownloaddemo.FileDownloadCloudTest">
                 <methods>
                     <include name="testFileDownload"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Selenium file upload demo on LambdaTest Chrome">
+        <parameter name="platform" value="Windows 11"/>
+        <parameter name="browser" value="chrome"/>
+        <parameter name="browserVersion" value="latest"/>
+        <classes>
+            <class name="io.github.mfaisalkhatri.uploaddownloaddemo.FileUploadTest">
+                <methods>
+                    <include name="testFileUpload"/>
+                    <include name="testUploadFileForPlagiarismCheck"/>
                 </methods>
             </class>
         </classes>
