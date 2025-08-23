@@ -6,8 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-public class RegistrationPage {
-    private       WebDriver driver;
+public class RegistrationPage extends BasePage {
     private final By        firstNameField  = By.id ("input-firstname");
     private       By        lastNameField   = By.id ("input-lastname");
     private       By        emailField      = By.id ("input-email");
@@ -18,7 +17,7 @@ public class RegistrationPage {
     private       By        continueBtn     = By.cssSelector ("input.btn-primary");
 
     public RegistrationPage (final WebDriver driver) {
-        this.driver = driver;
+        super (driver);
     }
 
     public RegistrationSuccessPage registerUser (final String firstName, final String lastName, final String emailId,
