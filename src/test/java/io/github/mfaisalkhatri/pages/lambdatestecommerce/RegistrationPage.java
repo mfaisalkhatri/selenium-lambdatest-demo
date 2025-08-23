@@ -53,7 +53,7 @@ public class RegistrationPage {
         passwordField().sendKeys(password);
         confirmPasswordField().sendKeys(password);
 
-        Actions actions = new Actions(driver);
+        final Actions actions = new Actions(driver);
         actions.moveToElement(agreePolicy()).click().perform();
 
         continueBtn().click();
