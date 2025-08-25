@@ -14,8 +14,7 @@ public class LambdaTestECommerceTests extends BaseTest {
     private static final String PASSWORD = "Password@321";
 
     @Test
-    public void testRegisterUser (final String firstName, final String lastName, final String emailId,
-        final String telephoneNumber, final String password) {
+    public void testRegisterUser () {
 
         this.driver.navigate ()
             .to ("https://ecommerce-playground.lambdatest.io/index.php?route=account/register");
@@ -28,7 +27,7 @@ public class LambdaTestECommerceTests extends BaseTest {
     }
 
     @Test
-    public void testLogin (final String email, final String password) {
+    public void testLogin () {
         this.driver.navigate ()
             .to ("https://ecommerce-playground.lambdatest.io/index.php?route=account/register");
 
