@@ -1,20 +1,19 @@
 package io.github.mfaisalkhatri.pageobjectmodeldemo.pages;
 
-import io.github.mfaisalkhatri.pages.lambdatestecommerce.RegistrationSuccessPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 public class RegistrationPage extends BasePage {
-    private final By        firstNameField  = By.id ("input-firstname");
-    private       By        lastNameField   = By.id ("input-lastname");
-    private       By        emailField      = By.id ("input-email");
-    private       By        telephoneField  = By.id ("input-telephone");
-    private       By        passwordField   = By.id ("input-password");
-    private       By        confirmPassword = By.id ("input-confirm");
-    private       By        agreePolicy     = By.id ("input-agree");
-    private       By        continueBtn     = By.cssSelector ("input.btn-primary");
+    private final By firstNameField  = By.id ("input-firstname");
+    private final By lastNameField   = By.id ("input-lastname");
+    private final By emailField      = By.id ("input-email");
+    private final By telephoneField  = By.id ("input-telephone");
+    private final By passwordField   = By.id ("input-password");
+    private final By confirmPassword = By.id ("input-confirm");
+    private final By agreePolicy     = By.id ("input-agree");
+    private final By continueBtn     = By.cssSelector ("input.btn-primary");
 
     public RegistrationPage (final WebDriver driver) {
         super (driver);
@@ -42,7 +41,6 @@ public class RegistrationPage extends BasePage {
             .perform ();
         this.driver.findElement (this.continueBtn)
             .click ();
-        return new RegistrationSuccessPage (driver);
+        return new RegistrationSuccessPage (this.driver);
     }
-
 }

@@ -2,11 +2,16 @@ package io.github.mfaisalkhatri.pageobjectmodeldemo.tests;
 
 import static org.testng.Assert.assertEquals;
 
-import io.github.mfaisalkhatri.pages.lambdatestecommerce.RegistrationPage;
-import io.github.mfaisalkhatri.pages.lambdatestecommerce.RegistrationSuccessPage;
+import io.github.mfaisalkhatri.pageobjectmodeldemo.pages.LoginPage;
+import io.github.mfaisalkhatri.pageobjectmodeldemo.pages.MyAccountPage;
+import io.github.mfaisalkhatri.pageobjectmodeldemo.pages.RegistrationPage;
+import io.github.mfaisalkhatri.pageobjectmodeldemo.pages.RegistrationSuccessPage;
 import org.testng.annotations.Test;
 
 public class LambdaTestECommerceTests extends BaseTest {
+
+    private static final String EMAIL    = "johndoe@email.com";
+    private static final String PASSWORD = "Password@321";
 
     @Test
     public void testRegisterUser (final String firstName, final String lastName, final String emailId,
@@ -16,9 +21,19 @@ public class LambdaTestECommerceTests extends BaseTest {
             .to ("https://ecommerce-playground.lambdatest.io/index.php?route=account/register");
 
         final RegistrationPage registrationPage = new RegistrationPage (this.driver);
-        final RegistrationSuccessPage registrationSuccessPage = registrationPage.registerUser ("John", "Doe",
-            "johndoe@email.com", "00974633", "Password@321");
+        final RegistrationSuccessPage registrationSuccessPage = registrationPage.registerUser ("John", "Doe", EMAIL,
+            "00974633", PASSWORD);
 
         assertEquals (registrationSuccessPage.getSuccessMessage (), "Your Account Has Been Created!");
+    }
+
+    @Test
+    public void testLogin (final String email, final String password) {
+        this.driver.navigate ()
+            .to ("https://ecommerce-playground.lambdatest.io/index.php?route=account/register");
+
+        final LoginPage loginPage = new LoginPage (this.driver);
+        final MyAccountPage myAccountPage = loginPage.performLogin (EMAIL, PASSWORD);
+        assertEquals (myAccountPage.getPageTitle (), "My Account");
     }
 }
