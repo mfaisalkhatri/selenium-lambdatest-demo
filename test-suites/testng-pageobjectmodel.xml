@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="LambdaTest ECommerce WebSite Test Suite">
+    <test name="LambdaTest ECommerce Playground - Registration Test">
+    <classes>
+        <class name="io.github.mfaisalkhatri.pageobjectmodeldemo.tests.LambdaTestECommerceTests">
+            <methods>
+                <include name="testRegisterUser"/>
+            </methods>
+        </class>
+    </classes>
+    </test>
+    <test name="LambdaTest ECommerce Playground - Login Test">
+        <classes>
+            <class name="io.github.mfaisalkhatri.pageobjectmodeldemo.tests.LambdaTestECommerceTests">
+                <methods>
+                    <include name="testLogin"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
