@@ -1,4 +1,4 @@
-package io.github.mfaisalkhatri.pageobjectmodeldemo;
+package io.github.mfaisalkhatri.pageobjectmodeldemo.pages;
 
 import io.github.mfaisalkhatri.pages.lambdatestecommerce.RegistrationSuccessPage;
 import org.openqa.selenium.By;

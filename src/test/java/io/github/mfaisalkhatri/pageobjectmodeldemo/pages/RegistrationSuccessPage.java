@@ -1,4 +1,4 @@
-package io.github.mfaisalkhatri.pageobjectmodeldemo;
+package io.github.mfaisalkhatri.pageobjectmodeldemo.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
