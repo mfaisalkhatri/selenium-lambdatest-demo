@@ -10,12 +10,11 @@ import org.testng.annotations.Test;
 
 public class LambdaTestECommerceTests extends BaseTest {
 
-    private static final String EMAIL    = "johndoe@email.com";
+    private static final String EMAIL    = "johndoe77@email.com";
     private static final String PASSWORD = "Password@321";
 
     @Test
     public void testRegisterUser () {
-
         this.driver.navigate ()
             .to ("https://ecommerce-playground.lambdatest.io/index.php?route=account/register");
 
@@ -29,7 +28,7 @@ public class LambdaTestECommerceTests extends BaseTest {
     @Test
     public void testLogin () {
         this.driver.navigate ()
-            .to ("https://ecommerce-playground.lambdatest.io/index.php?route=account/register");
+            .to ("https://ecommerce-playground.lambdatest.io/index.php?route=account/login");
 
         final LoginPage loginPage = new LoginPage (this.driver);
         final MyAccountPage myAccountPage = loginPage.performLogin (EMAIL, PASSWORD);
