@@ -11,13 +11,15 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 public class BaseTest {
-    protected               RemoteWebDriver driver;
+    //protected WebDriver driver;
+    protected            RemoteWebDriver driver;
     private static final String          LT_USERNAME   = System.getenv ("LT_USERNAME");
     private static final String          LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
     private static final String          GRID_URL      = "@hub.lambdatest.com/wd/hub";
 
     @BeforeClass
     public void setup () {
+        //        driver = new ChromeDriver ();
         try {
             this.driver = new RemoteWebDriver (new URL ("http://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
                 getChromeOptions ());
