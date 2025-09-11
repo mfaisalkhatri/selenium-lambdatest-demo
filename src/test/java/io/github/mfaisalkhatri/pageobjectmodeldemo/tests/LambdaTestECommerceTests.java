@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class LambdaTestECommerceTests extends BaseTest {
 
-    private static final String EMAIL    = "johndoe77@email.com";
+    private static final String EMAIL    = "johndoe877@email.com";
     private static final String PASSWORD = "Password@321";
 
     @Test
