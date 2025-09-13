@@ -21,7 +21,6 @@ public class AlertTest {
 
     @Test
     public void testAlert () {
-        this.driver = new ChromeDriver ();
         this.driver.navigate ()
             .to ("https://www.lambdatest.com/selenium-playground/javascript-alert-box-demo");
         final WebElement clickMeButton = this.driver.findElement (
@@ -36,8 +35,7 @@ public class AlertTest {
 
         final String promptText = this.driver.findElement (By.id ("prompt-demo"))
             .getText ();
-        assertEquals (promptText, name);
-        this.driver.quit ();
+        assertEquals (promptText, "You have entered " + "'"+ name +"' !");
     }
 
     @AfterClass
