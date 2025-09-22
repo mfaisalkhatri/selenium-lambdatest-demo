@@ -70,7 +70,6 @@ public class ExceptionsDemoTest {
 
         final WebElement blogLink = this.driver.findElement (By.linkText ("Blog"));
         blogLink.click ();
-
     }
 
     @Test
