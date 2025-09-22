@@ -21,7 +21,7 @@
             </class>
         </classes>
     </test>
-    <test name="Selenium playground file download demo on LambdaTest Chrome" enabled="false">
+    <test name="Selenium playground file download demo on LambdaTest Chrome" enabled="true">
         <parameter name="platform" value="Windows 11"/>
         <parameter name="browser" value="chrome"/>
         <parameter name="browserVersion" value="latest"/>
@@ -33,7 +33,7 @@
             </class>
         </classes>
     </test>
-    <test name="Selenium file upload demo on LambdaTest Chrome">
+    <test name="Selenium file upload demo on LambdaTest Chrome" enabled="true">
         <parameter name="platform" value="Windows 11"/>
         <parameter name="browser" value="chrome"/>
         <parameter name="browserVersion" value="latest"/>

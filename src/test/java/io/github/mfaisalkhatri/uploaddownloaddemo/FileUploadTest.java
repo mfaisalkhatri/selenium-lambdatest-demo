@@ -21,6 +21,9 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class FileUploadTest {
+    private static final String GRID_URL      = "@hub.lambdatest.com/wd/hub";
+    private static final String LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
+    private static final String LT_USERNAME   = System.getenv ("LT_USERNAME");
 
     private RemoteWebDriver driver;
     private String          status = "failed";
@@ -28,14 +31,8 @@ public class FileUploadTest {
     @BeforeTest
     @Parameters ({ "browser", "browserVersion", "platform" })
     public void setup (final String browser, final String browserVersion, final String platform) {
-        final String userName = System.getenv ("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv ("LT_USERNAME");
-        final String accessKey = System.getenv ("LT_ACCESS_KEY") == null
-                                 ? "LT_ACCESS_KEY"
-                                 : System.getenv ("LT_ACCESS_KEY");
-        final String gridUrl = "@hub.lambdatest.com/wd/hub";
-
         try {
-            this.driver = new RemoteWebDriver (new URL ("https://" + userName + ":" + accessKey + gridUrl),
+            this.driver = new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
                 getChromeOptions (browserVersion, platform));
 
         } catch (final MalformedURLException e) {
