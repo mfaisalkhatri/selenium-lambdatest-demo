@@ -33,12 +33,14 @@ public class ClickDemoTests {
     @Test
     public void checkboxDemoTest () {
         this.driver.get ("https://www.lambdatest.com/selenium-playground/checkbox-demo");
-        final WebElement checkboxOne = this.driver.findElement (By.id ("isAgeSelected"));
+        final WebElement checkboxOne = this.driver.findElement (
+            By.cssSelector ("div:nth-child(1) > label > input[type=checkbox]"));
         checkboxOne.click ();
         assertTrue (checkboxOne.isSelected ());
-        final String selectedResult = this.driver.findElement (By.id ("txtAge"))
+        final String selectedResult = this.driver.findElement (
+                By.cssSelector ("section > div > div > div:nth-child(1) > p"))
             .getText ();
-        assertEquals (selectedResult, "Checked");
+        assertEquals (selectedResult, "Checked!");
     }
 
     public ChromeOptions getChromeOptions () {
@@ -136,7 +138,8 @@ public class ClickDemoTests {
     @Test
     public void testDoubleClick () {
         this.driver.get ("https://www.lambdatest.com/selenium-playground/checkbox-demo");
-        final WebElement checkboxOne = this.driver.findElement (By.id ("isAgeSelected"));
+        final WebElement checkboxOne = this.driver.findElement (
+            By.cssSelector ("div:nth-child(1) > label > input[type=checkbox]"));
 
         final Actions actions = new Actions (this.driver);
         actions.doubleClick (checkboxOne)
@@ -160,7 +163,6 @@ public class ClickDemoTests {
 
         final WebElement droppedList = this.driver.findElement (By.cssSelector ("#droppedlist > span"));
         assertEquals (droppedList.getText (), "Draggable 1");
-
     }
 
     @Test
@@ -171,7 +173,7 @@ public class ClickDemoTests {
         final String bgColorBase = hoverMeGreenBtn.getCssValue ("background-color");
         assertEquals (bgColorBase, "rgba(40, 167, 69, 1)");
 
-        final WebElement submitBtn = this.driver.findElement (By.xpath ("//*[@id=\"seleniumform\"]/div[6]/button"));
+        //final WebElement submitBtn = this.driver.findElement (By.xpath ("//*[@id=\"seleniumform\"]/div[6]/button"));
         final Actions actions = new Actions (this.driver);
         actions.moveToElement (hoverMeGreenBtn)
             .pause (2000)
