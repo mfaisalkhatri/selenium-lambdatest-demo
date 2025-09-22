@@ -19,20 +19,23 @@ import org.testng.annotations.Test;
 
 public class ECommercePlayGroundAccessibilityTests {
 
-    private RemoteWebDriver driver;
+    private static final String          GRID_URL      = "@hub.lambdatest.com/wd/hub";
+    private static final String          LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
+    private static final String          LT_USERNAME   = System.getenv ("LT_USERNAME");
+    private              RemoteWebDriver driver;
 
     public ChromeOptions getChromeOptions () {
         final var browserOptions = new ChromeOptions ();
         browserOptions.setPlatformName ("Windows 10");
         browserOptions.setBrowserVersion ("127.0");
-        final HashMap<String, Object> ltOptions = new HashMap<String, Object> ();
+        final HashMap<String, Object> ltOptions = new HashMap<> ();
         ltOptions.put ("project", "Automated Accessibility Testing With Selenium");
         ltOptions.put ("build", "LambdaTest Selenium Playground");
         ltOptions.put ("name", "Accessibility test");
         ltOptions.put ("w3c", true);
         ltOptions.put ("plugin", "java-testNG");
         ltOptions.put ("accessibility", true);
-        ltOptions.put ("accessibility.wcagVersion", "wcag21");
+        ltOptions.put ("accessibility.wcagVersion", "wcag21a");
         ltOptions.put ("accessibility.bestPractice", false);
         ltOptions.put ("accessibility.needsReview", true);
 
@@ -43,13 +46,8 @@ public class ECommercePlayGroundAccessibilityTests {
 
     @BeforeTest
     public void setup () {
-        final String userName = System.getenv ("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv ("LT_USERNAME");
-        final String accessKey = System.getenv ("LT_ACCESS_KEY") == null
-                                 ? "LT_ACCESS_KEY"
-                                 : System.getenv ("LT_ACCESS_KEY");
-        final String gridUrl = "@hub.lambdatest.com/wd/hub";
         try {
-            this.driver = new RemoteWebDriver (new URL ("https://" + userName + ":" + accessKey + gridUrl),
+            this.driver = new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
                 getChromeOptions ());
         } catch (final MalformedURLException e) {
             System.out.println ("Could not start the remote session on LambdaTest cloud grid");
