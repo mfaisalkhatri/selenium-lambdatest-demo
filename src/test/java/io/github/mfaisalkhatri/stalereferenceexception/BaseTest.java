@@ -11,8 +11,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 public class BaseTest {
-
     protected static RemoteWebDriver driver;
+    private static final String GRID_URL      = "@hub.lambdatest.com/wd/hub";
+    private static final String LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
+    private static final String LT_USERNAME   = System.getenv ("LT_USERNAME");
 
     public ChromeOptions getChromeOptions () {
         final var browserOptions = new ChromeOptions ();
@@ -37,14 +39,8 @@ public class BaseTest {
     @BeforeClass
     public void setup () {
 
-        final String USERNAME = System.getenv ("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv ("LT_USERNAME");
-        final String ACCESS_KEY = System.getenv ("LT_ACCESS_KEY") == null
-                                  ? "LT_ACCESS_KEY"
-                                  : System.getenv ("LT_ACCESS_KEY");
-        final String GRID_URL = "@hub.lambdatest.com/wd/hub";
-
         try {
-            driver = new RemoteWebDriver (new URL ("https://" + USERNAME + ":" + ACCESS_KEY + GRID_URL),
+            driver = new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
                 getChromeOptions ());
         } catch (final MalformedURLException e) {
             System.out.println ("Could not start the remote session on LambdaTest cloud grid");

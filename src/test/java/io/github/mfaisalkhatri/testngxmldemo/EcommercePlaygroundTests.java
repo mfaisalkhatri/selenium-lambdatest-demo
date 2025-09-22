@@ -30,7 +30,7 @@ public class EcommercePlaygroundTests {
     public void tearDown () {
         this.driver.quit ();
     }
-
+    
     @Test
     public void testCheckTitle () {
         this.driver.get ("https://ecommerce-playground.lambdatest.io/");

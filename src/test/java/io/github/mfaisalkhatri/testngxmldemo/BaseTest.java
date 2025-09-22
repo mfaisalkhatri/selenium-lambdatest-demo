@@ -12,23 +12,19 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
-public class Base {
-
-    RemoteWebDriver driver;
-    String          status = "failed";
+public class BaseTest {
+    private static final String          GRID_URL      = "@hub.lambdatest.com/wd/hub";
+    private static final String          LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
+    private static final String          LT_USERNAME   = System.getenv ("LT_USERNAME");
+    protected            RemoteWebDriver driver;
+    protected            String          status        = "failed";
 
     @BeforeTest
     @Parameters ({ "browser", "browserVersion", "platform" })
     public void setup (final String browser, final String browserVersion, final String platform) {
-        final String userName = System.getenv ("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv ("LT_USERNAME");
-        final String accessKey = System.getenv ("LT_ACCESS_KEY") == null
-                                 ? "LT_ACCESS_KEY"
-                                 : System.getenv ("LT_ACCESS_KEY");
-        final String gridUrl = "@hub.lambdatest.com/wd/hub";
-
         if (browser.equalsIgnoreCase ("chrome")) {
             try {
-                this.driver = new RemoteWebDriver (new URL ("https://" + userName + ":" + accessKey + gridUrl),
+                this.driver = new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
                     getChromeOptions (browser, browserVersion, platform));
 
             } catch (final MalformedURLException e) {
@@ -36,7 +32,7 @@ public class Base {
             }
         } else if (browser.equalsIgnoreCase ("firefox")) {
             try {
-                this.driver = new RemoteWebDriver (new URL ("https://" + userName + ":" + accessKey + gridUrl),
+                this.driver = new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
                     getFirefoxOptions (browser, browserVersion, platform));
 
             } catch (final MalformedURLException e) {
@@ -81,7 +77,6 @@ public class Base {
         ltOptions.put ("name", "Search for a product test");
         ltOptions.put ("w3c", true);
         ltOptions.put ("visual", true);
-        ltOptions.put ("w3c", true);
         ltOptions.put ("plugin", "java-testNG");
         return ltOptions;
     }
