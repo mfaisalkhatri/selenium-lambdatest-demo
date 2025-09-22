@@ -25,7 +25,10 @@ import org.testng.annotations.Test;
 
 public class ClickDemoTests {
 
-    private WebDriver driver;
+    private static final String    GRID_URL      = "@hub.lambdatest.com/wd/hub";
+    private static final String    LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
+    private static final String    LT_USERNAME   = System.getenv ("LT_USERNAME");
+    private              WebDriver driver;
 
     @Test
     public void checkboxDemoTest () {
@@ -70,13 +73,8 @@ public class ClickDemoTests {
 
     @BeforeTest
     public void setup () {
-        final String userName = System.getenv ("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv ("LT_USERNAME");
-        final String accessKey = System.getenv ("LT_ACCESS_KEY") == null
-                                 ? "LT_ACCESS_KEY"
-                                 : System.getenv ("LT_ACCESS_KEY");
-        final String gridUrl = "@hub.lambdatest.com/wd/hub";
         try {
-            this.driver = new RemoteWebDriver (new URL ("https://" + userName + ":" + accessKey + gridUrl),
+            this.driver = new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
                 getChromeOptions ());
         } catch (final MalformedURLException e) {
             System.out.println ("Could not start the remote session on LambdaTest cloud grid");
