@@ -1,5 +1,12 @@
 package io.github.mfaisalkhatri;
 
+import static org.openqa.selenium.support.locators.RelativeLocator.with;
+import static org.testng.Assert.assertEquals;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,58 +16,54 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashMap;
-
-import static org.openqa.selenium.support.locators.RelativeLocator.with;
-import static org.testng.Assert.assertEquals;
-
 public class RelativeLocatorTests {
-    WebDriver driver;
-    String username = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
-    String accesskey = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
-    String gridURL = "@hub.lambdatest.com/wd/hub";
+    private static final String GRID_URL      = "@hub.lambdatest.com/wd/hub";
+    private static final String LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
+    private static final String LT_USERNAME   = System.getenv ("LT_USERNAME");
+
+    private WebDriver driver;
 
     @BeforeTest
-    public void setup() throws MalformedURLException {
-        ChromeOptions browserOptions = new ChromeOptions();
-        browserOptions.setPlatformName("Windows 10");
-        browserOptions.setBrowserVersion("122.0");
-        HashMap<String, Object> ltOptions = new HashMap<String, Object>();
-        ltOptions.put("project", "Selenium Locator Demo");
-        ltOptions.put("w3c", true);
-        ltOptions.put("plugin", "java-testNG");
-        ltOptions.put("build", "Demonstration: Selenium Locator Demo on LambdaTest");
-        browserOptions.setCapability("LT:Options", ltOptions);
+    public void setup () throws MalformedURLException {
+        final ChromeOptions browserOptions = new ChromeOptions ();
+        browserOptions.setPlatformName ("Windows 10");
+        browserOptions.setBrowserVersion ("122.0");
+        final HashMap<String, Object> ltOptions = new HashMap<String, Object> ();
+        ltOptions.put ("project", "Selenium Locator Demo");
+        ltOptions.put ("w3c", true);
+        ltOptions.put ("plugin", "java-testNG");
+        ltOptions.put ("build", "Demonstration: Selenium Locator Demo on LambdaTest");
+        browserOptions.setCapability ("LT:Options", ltOptions);
 
-        driver = new RemoteWebDriver(new URL("https://" + username + ":" + accesskey + gridURL), browserOptions);
+        this.driver = new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
+            browserOptions);
+    }
 
+    @AfterTest
+    public void tearDown () {
+        this.driver.quit ();
     }
 
     @Test
-    public void testRelativeLocator() {
+    public void testRelativeLocator () {
 
-        driver.get("https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=8");
+        this.driver.get (
+            "https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=8");
 
+        final WebElement iMac = this.driver.findElement (By.linkText ("iMac"));
+        final WebElement iMacPriceViaBelow = this.driver.findElement (
+            with (By.cssSelector ("div.price> span")).below (iMac));
+        assertEquals (iMacPriceViaBelow.getText (), "$170.00");
 
-        WebElement iMac = driver.findElement(By.linkText("iMac"));
-        WebElement iMacPriceViaBelow = driver.findElement(with(By.cssSelector("div.price> span")).below(iMac));
-        assertEquals(iMacPriceViaBelow.getText(), "$170.00");
+        final WebElement fetchToTheRight = this.driver.findElement (with (By.tagName ("h4")).toRightOf (iMac));
+        assertEquals (fetchToTheRight.getText (), "Apple Cinema 30\"");
 
-        WebElement fetchToTheRight = driver.findElement(with(By.tagName("h4")).toRightOf(iMac));
-        assertEquals(fetchToTheRight.getText(), "Apple Cinema 30\"");
+        final WebElement fetchViaAbove = this.driver.findElement (with (By.tagName ("h4")).above (fetchToTheRight));
+        assertEquals (fetchViaAbove.getText (), "iPod Nano");
 
-        WebElement fetchViaAbove = driver.findElement(with(By.tagName("h4")).above(fetchToTheRight));
-        assertEquals(fetchViaAbove.getText(), "iPod Nano");
+        final WebElement fetchViaToLeftOf = this.driver.findElement (with (By.tagName ("h4")).toLeftOf (fetchViaAbove));
+        assertEquals (fetchViaToLeftOf.getText (), "iPod Shuffle");
 
-        WebElement fetchViaToLeftOf = driver.findElement(with(By.tagName("h4")).toLeftOf(fetchViaAbove));
-        assertEquals(fetchViaToLeftOf.getText(), "iPod Shuffle");
-
-    }
-    @AfterTest
-    public void tearDown() {
-        driver.quit();
     }
 
 }

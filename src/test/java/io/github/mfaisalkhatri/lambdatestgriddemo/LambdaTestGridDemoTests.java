@@ -9,19 +9,19 @@ import org.testng.annotations.Test;
 public class LambdaTestGridDemoTests extends BaseTest {
 
     @Test
-    public void testSearchProduct() {
+    public void testSearchProduct () {
 
-        getDriver().get("https://ecommerce-playground.lambdatest.io/");
-        WebElement searchBox = getDriver().findElement(By.name("search"));
+        getDriver ().get ("https://ecommerce-playground.lambdatest.io/");
+        final WebElement searchBox = getDriver ().findElement (By.name ("search"));
 
-        String searchText = "iPhone";
-        searchBox.sendKeys(searchText);
-        WebElement searchBtn = getDriver().findElement(By.cssSelector("button.type-text"));
-        searchBtn.click();
+        final String searchText = "iPhone";
+        searchBox.sendKeys (searchText);
+        final WebElement searchBtn = getDriver ().findElement (By.cssSelector ("button.type-text"));
+        searchBtn.click ();
 
-        String pageHeader = getDriver().findElement(By.tagName("h1"))
-            .getText();
+        final String pageHeader = getDriver ().findElement (By.tagName ("h1"))
+            .getText ();
 
-        assertEquals(pageHeader, "Search - " + searchText);
+        assertEquals (pageHeader, "Search - " + searchText);
     }
 }

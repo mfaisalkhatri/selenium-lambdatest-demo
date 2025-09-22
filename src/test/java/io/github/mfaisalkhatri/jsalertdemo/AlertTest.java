@@ -17,20 +17,19 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class AlertTest {
+    private static final String GRID_URL      = "@hub.lambdatest.com/wd/hub";
+    private static final String LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
+    private static final String LT_USERNAME   = System.getenv ("LT_USERNAME");
+
     // private WebDriver driver;
     private RemoteWebDriver driver;
-    private String status = "failed";
+    private String          status = "failed";
 
     @BeforeClass
     public void setup () {
         //this.driver = new ChromeDriver ();
-        final String userName = System.getenv ("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv ("LT_USERNAME");
-        final String accessKey = System.getenv ("LT_ACCESS_KEY") == null
-                                 ? "LT_ACCESS_KEY"
-                                 : System.getenv ("LT_ACCESS_KEY");
-        final String gridUrl = "@hub.lambdatest.com/wd/hub";
         try {
-            this.driver = new RemoteWebDriver (new URL ("http://" + userName + ":" + accessKey + gridUrl),
+            this.driver = new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
                 getChromeOptions ());
         } catch (final MalformedURLException e) {
             System.out.println ("Could not start the remote session on LambdaTest cloud grid");
@@ -38,6 +37,12 @@ public class AlertTest {
         this.driver.manage ()
             .timeouts ()
             .pageLoadTimeout (Duration.ofSeconds (10));
+    }
+
+    @AfterClass
+    public void tearDown () {
+        this.driver.executeScript ("lambda-status=" + this.status);
+        this.driver.quit ();
     }
 
     @Test
@@ -56,14 +61,8 @@ public class AlertTest {
 
         final String promptText = this.driver.findElement (By.id ("prompt-demo"))
             .getText ();
-        assertEquals (promptText, "You have entered " + "'"+ name +"' !");
+        assertEquals (promptText, "You have entered " + "'" + name + "' !");
         this.status = "passed";
-    }
-
-    @AfterClass
-    public void tearDown () {
-        this.driver.executeScript("lambda-status=" + this.status);
-        this.driver.quit ();
     }
 
     private ChromeOptions getChromeOptions () {

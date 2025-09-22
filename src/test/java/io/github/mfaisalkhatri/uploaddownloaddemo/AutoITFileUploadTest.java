@@ -19,18 +19,23 @@ public class AutoITFileUploadTest {
 
     @BeforeTest
     public void setup () {
-        driver = new ChromeDriver ();
-        driver.manage ()
+        this.driver = new ChromeDriver ();
+        this.driver.manage ()
             .timeouts ()
             .implicitlyWait (Duration.ofSeconds (20));
+    }
+
+    @AfterTest
+    public void tearDown () {
+        this.driver.quit ();
     }
 
     @Test
     public void testFileUpload () throws IOException, InterruptedException {
 
-        driver.get ("https://filebin.net/");
+        this.driver.get ("https://filebin.net/");
 
-        driver.findElement (By.id ("#fileField"))
+        this.driver.findElement (By.id ("#fileField"))
             .click ();
         Thread.sleep (5000);
 
@@ -38,14 +43,9 @@ public class AutoITFileUploadTest {
             .exec ("C:\\Users\\Faisal\\AutoIt_script\\uploadfile.exe");
         Thread.sleep (5000);
 
-        WebElement tableRow = driver.findElement (By.cssSelector ("table > tbody > tr"));
-        String fileNameText = tableRow.findElement (By.cssSelector ("td:nth-child(1) > a"))
+        final WebElement tableRow = this.driver.findElement (By.cssSelector ("table > tbody > tr"));
+        final String fileNameText = tableRow.findElement (By.cssSelector ("td:nth-child(1) > a"))
             .getText ();
         assertEquals (fileNameText, "file_example_JPG_100kB.jpg");
-    }
-
-    @AfterTest
-    public void tearDown() {
-        driver.quit ();
     }
 }

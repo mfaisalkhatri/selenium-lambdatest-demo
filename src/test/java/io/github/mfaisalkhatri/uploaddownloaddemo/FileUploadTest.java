@@ -21,80 +21,82 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class FileUploadTest {
+    private static final String GRID_URL      = "@hub.lambdatest.com/wd/hub";
+    private static final String LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
+    private static final String LT_USERNAME   = System.getenv ("LT_USERNAME");
 
     private RemoteWebDriver driver;
-    private String status = "failed";
+    private String          status = "failed";
 
     @BeforeTest
     @Parameters ({ "browser", "browserVersion", "platform" })
-    public void setup(String browser, String browserVersion, String platform) {
-        final String userName = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
-        final String accessKey = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
-        final String gridUrl = "@hub.lambdatest.com/wd/hub";
-
+    public void setup (final String browser, final String browserVersion, final String platform) {
         try {
-            driver = new RemoteWebDriver(new URL ("http://" + userName + ":" + accessKey + gridUrl), getChromeOptions(browserVersion, platform));
+            this.driver = new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
+                getChromeOptions (browserVersion, platform));
 
         } catch (final MalformedURLException e) {
-            throw new Error("Could not start the chrome browser on LambdaTest cloud grid");
+            throw new Error ("Could not start the chrome browser on LambdaTest cloud grid");
         }
-        driver.setFileDetector(new LocalFileDetector ());
-        driver.manage()
-            .timeouts()
-            .implicitlyWait(Duration.ofSeconds(20));
+        this.driver.setFileDetector (new LocalFileDetector ());
+        this.driver.manage ()
+            .timeouts ()
+            .implicitlyWait (Duration.ofSeconds (20));
     }
 
-    @Test()
-    public void testFileUpload() {
-        driver.get ("https://filebin.net/");
-        WebElement selectFileToUploadButton = driver.findElement (By.id ("fileField"));
-        String fileName = "file_example_JPG_100kB.jpg";
+    @AfterTest
+    public void tearDown () {
+        this.driver.executeScript ("lambda-status=" + this.status);
+        this.driver.quit ();
+    }
+
+    @Test ()
+    public void testFileUpload () {
+        this.driver.get ("https://filebin.net/");
+        final WebElement selectFileToUploadButton = this.driver.findElement (By.id ("fileField"));
+        final String fileName = "file_example_JPG_100kB.jpg";
         selectFileToUploadButton.sendKeys ("/Users/faisalkhatri/Blogs/file_upload_download/" + fileName);
-        WebElement tableRow = driver.findElement (By.cssSelector ("table > tbody > tr"));
-        String fileNameText = tableRow.findElement (By.cssSelector ("td:nth-child(1) > a")).getText ();
+        final WebElement tableRow = this.driver.findElement (By.cssSelector ("table > tbody > tr"));
+        final String fileNameText = tableRow.findElement (By.cssSelector ("td:nth-child(1) > a"))
+            .getText ();
         assertEquals (fileNameText, fileName);
         this.status = "passed";
     }
 
     @Test
-    public void testUploadFileForPlagiarismCheck() {
-        driver.get ("https://smallseotools.com/plagiarism-checker/");
-        WebElement attachFile = driver.findElement (By.cssSelector ("div #fileUpload"));
+    public void testUploadFileForPlagiarismCheck () {
+        this.driver.get ("https://smallseotools.com/plagiarism-checker/");
+        final WebElement attachFile = this.driver.findElement (By.cssSelector ("div #fileUpload"));
         attachFile.sendKeys ("/Users/faisalkhatri/Blogs/file_upload_download/samplepdf.pdf");
 
-        WebDriverWait wait = new WebDriverWait (driver,Duration.ofSeconds (20));
+        final WebDriverWait wait = new WebDriverWait (this.driver, Duration.ofSeconds (20));
         wait.until (ExpectedConditions.invisibilityOfElementLocated (By.cssSelector ("#loader_con11 p")));
 
-        String wordsCount = driver.findElement (By.cssSelector ("span#count_")).getText ();
+        final String wordsCount = this.driver.findElement (By.cssSelector ("span#count_"))
+            .getText ();
         assertTrue (Integer.parseInt (wordsCount) > 0);
         this.status = "passed";
     }
 
-    private ChromeOptions getChromeOptions(String browserVersion, String platform) {
-        var chromePrefs = new HashMap<String, Object> ();
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setExperimentalOption("prefs", chromePrefs);
-        chromeOptions.setPlatformName(platform);
-        chromeOptions.setBrowserVersion(browserVersion);
-        chromeOptions.setCapability("LT:Options", getLtOptions());
+    private ChromeOptions getChromeOptions (final String browserVersion, final String platform) {
+        final var chromePrefs = new HashMap<String, Object> ();
+        final ChromeOptions chromeOptions = new ChromeOptions ();
+        chromeOptions.setExperimentalOption ("prefs", chromePrefs);
+        chromeOptions.setPlatformName (platform);
+        chromeOptions.setBrowserVersion (browserVersion);
+        chromeOptions.setCapability ("LT:Options", getLtOptions ());
 
         return chromeOptions;
     }
 
-    private HashMap<String, Object> getLtOptions() {
-        final var ltOptions = new HashMap<String, Object>();
-        ltOptions.put("project", "LambdaTest File upload download demo");
-        ltOptions.put("build", "File Upload Web Page");
-        ltOptions.put("name", "File Upload using Chrome");
-        ltOptions.put("w3c", true);
-        ltOptions.put("visual", true);
-        ltOptions.put("plugin", "java-testNG");
+    private HashMap<String, Object> getLtOptions () {
+        final var ltOptions = new HashMap<String, Object> ();
+        ltOptions.put ("project", "LambdaTest File upload download demo");
+        ltOptions.put ("build", "File Upload Web Page");
+        ltOptions.put ("name", "File Upload using Chrome");
+        ltOptions.put ("w3c", true);
+        ltOptions.put ("visual", true);
+        ltOptions.put ("plugin", "java-testNG");
         return ltOptions;
-    }
-
-    @AfterTest
-    public void tearDown() {
-        this.driver.executeScript("lambda-status=" + this.status);
-        driver.quit();
     }
 }
