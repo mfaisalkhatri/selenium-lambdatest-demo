@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
 
 public class ViewableScreenshotExample {
 
-    WebDriver driver;
+    private WebDriver driver;
 
     @BeforeTest
     public void setup () {

@@ -24,7 +24,7 @@ public class ScreenshotWithSeleniumTest {
         options.setCapability ("webSocketUrl", true);
         this.driver = new ChromeDriver (options);
     }
-
+    
     @AfterTest
     public void tearDown () {
         this.driver.quit ();
@@ -58,6 +58,5 @@ public class ScreenshotWithSeleniumTest {
         final FileOutputStream imgOutFile = new FileOutputStream ("./screenshots/screenshot_homepage.png");
         imgOutFile.write (imgByteArray);
         imgOutFile.close ();
-
     }
 }
