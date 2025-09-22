@@ -19,7 +19,7 @@ import org.testng.annotations.Test;
 public class AlertTest {
     // private WebDriver driver;
     private RemoteWebDriver driver;
-    private String status = "failed";
+    private String          status = "failed";
 
     @BeforeClass
     public void setup () {
@@ -30,7 +30,7 @@ public class AlertTest {
                                  : System.getenv ("LT_ACCESS_KEY");
         final String gridUrl = "@hub.lambdatest.com/wd/hub";
         try {
-            this.driver = new RemoteWebDriver (new URL ("http://" + userName + ":" + accessKey + gridUrl),
+            this.driver = new RemoteWebDriver (new URL ("https://" + userName + ":" + accessKey + gridUrl),
                 getChromeOptions ());
         } catch (final MalformedURLException e) {
             System.out.println ("Could not start the remote session on LambdaTest cloud grid");
@@ -38,6 +38,12 @@ public class AlertTest {
         this.driver.manage ()
             .timeouts ()
             .pageLoadTimeout (Duration.ofSeconds (10));
+    }
+
+    @AfterClass
+    public void tearDown () {
+        this.driver.executeScript ("lambda-status=" + this.status);
+        this.driver.quit ();
     }
 
     @Test
@@ -56,14 +62,8 @@ public class AlertTest {
 
         final String promptText = this.driver.findElement (By.id ("prompt-demo"))
             .getText ();
-        assertEquals (promptText, "You have entered " + "'"+ name +"' !");
+        assertEquals (promptText, "You have entered " + "'" + name + "' !");
         this.status = "passed";
-    }
-
-    @AfterClass
-    public void tearDown () {
-        this.driver.executeScript("lambda-status=" + this.status);
-        this.driver.quit ();
     }
 
     private ChromeOptions getChromeOptions () {

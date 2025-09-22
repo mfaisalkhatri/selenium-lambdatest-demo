@@ -1,13 +1,7 @@
 package io.github.mfaisalkhatri.mouseactionsdemo;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -15,175 +9,214 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 public class TestMouseActions {
 
     private RemoteWebDriver driver;
-    private String status = "failed";
+    private String          status = "failed";
 
-    @BeforeTest
-    public void setup() {
-        final String userName = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
-        final String accessKey = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
-        final String gridUrl = "@hub.lambdatest.com/wd/hub";
-        try {
-            this.driver = new RemoteWebDriver(new URL("http://" + userName + ":" + accessKey + gridUrl), getChromeOptions());
-        } catch (final MalformedURLException e) {
-            System.out.println("Could not start the remote session on LambdaTest cloud grid");
-        }
-        this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-    }
+    public ChromeOptions getChromeOptions () {
+        final var browserOptions = new ChromeOptions ();
+        browserOptions.setPlatformName ("Windows 10");
+        browserOptions.setBrowserVersion ("127.0");
+        final HashMap<String, Object> ltOptions = new HashMap<String, Object> ();
+        ltOptions.put ("project", "Mouse Actions Demo");
+        ltOptions.put ("build", "LambdaTest Selenium Playground");
+        ltOptions.put ("name", "Perform Mouse Actions using Selenium WebDriver");
+        ltOptions.put ("w3c", true);
+        ltOptions.put ("plugin", "java-testNG");
 
-    public ChromeOptions getChromeOptions() {
-        final var browserOptions = new ChromeOptions();
-        browserOptions.setPlatformName("Windows 10");
-        browserOptions.setBrowserVersion("127.0");
-        final HashMap<String, Object> ltOptions = new HashMap<String, Object>();
-        ltOptions.put("project", "Mouse Actions Demo");
-        ltOptions.put("build", "LambdaTest Selenium Playground");
-        ltOptions.put("name", "Perform Mouse Actions using Selenium WebDriver");
-        ltOptions.put("w3c", true);
-        ltOptions.put("plugin", "java-testNG");
-
-        browserOptions.setCapability("LT:Options", ltOptions);
+        browserOptions.setCapability ("LT:Options", ltOptions);
 
         return browserOptions;
     }
-    
+
+    @BeforeTest
+    public void setup () {
+        final String userName = System.getenv ("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv ("LT_USERNAME");
+        final String accessKey = System.getenv ("LT_ACCESS_KEY") == null
+                                 ? "LT_ACCESS_KEY"
+                                 : System.getenv ("LT_ACCESS_KEY");
+        final String gridUrl = "@hub.lambdatest.com/wd/hub";
+        try {
+            this.driver = new RemoteWebDriver (new URL ("https://" + userName + ":" + accessKey + gridUrl),
+                getChromeOptions ());
+        } catch (final MalformedURLException e) {
+            System.out.println ("Could not start the remote session on LambdaTest cloud grid");
+        }
+        this.driver.manage ()
+            .timeouts ()
+            .implicitlyWait (Duration.ofSeconds (2));
+    }
+
+    @AfterTest
+    public void tearDown () {
+
+        this.driver.executeScript ("lambda-status=" + this.status);
+        this.driver.quit ();
+    }
+
     @Test
-    public void testMouseClickAction() {
-        driver.get("https://ecommerce-playground.lambdatest.io/");
-        WebElement searchBox = driver.findElement(By.name("search"));
-        searchBox.sendKeys("iPhone");
+    public void testContextClickAction () {
+        this.driver.get ("https://www.lambdatest.com/selenium-playground/context-menu");
+        final WebElement contextClickBox = this.driver.findElement (By.id ("hot-spot"));
+        final Actions actions = new Actions (this.driver);
+        actions.contextClick (contextClickBox)
+            .build ()
+            .perform ();
 
-        WebElement searchBtn = driver.findElement(By.cssSelector("button[type=submit]"));
-        searchBtn.click();
+        final Alert alert = this.driver.switchTo ()
+            .alert ();
 
-        String pageHeader = driver.findElement(By.cssSelector("#entry_212456 h1")).getText();
-        assertEquals(pageHeader, "Search - iPhone");
-        
+        final String alertText = alert.getText ();
+        assertEquals (alertText, "You selected a context menu");
+
+        alert.accept ();
         this.status = "passed";
     }
 
     @Test
     public void testDoubleClickAction () {
-        driver.get("https://unixpapa.com/js/testmouse.html");
-        WebElement clickHereText = driver.findElement(By.linkText("click here to test"));
-        Actions actions = new Actions(driver);
-        actions.doubleClick(clickHereText).build().perform();
+        this.driver.get ("https://unixpapa.com/js/testmouse.html");
+        final WebElement clickHereText = this.driver.findElement (By.linkText ("click here to test"));
+        final Actions actions = new Actions (this.driver);
+        actions.doubleClick (clickHereText)
+            .build ()
+            .perform ();
 
-        WebElement textBox = driver.findElement(By.tagName("textarea"));
-        String textBoxValue = textBox.getAttribute("value");
+        final WebElement textBox = this.driver.findElement (By.tagName ("textarea"));
+        final String textBoxValue = textBox.getAttribute ("value");
 
-        assertTrue(textBoxValue.contains("dblclick"));
+        assertTrue (textBoxValue.contains ("dblclick"));
         this.status = "passed";
     }
 
     @Test
-    public void testContextClickAction() {
-        driver.get("https://www.lambdatest.com/selenium-playground/context-menu");
-        WebElement contextClickBox = driver.findElement(By.id("hot-spot"));
-        Actions actions = new Actions(driver);
-        actions.contextClick(contextClickBox).build().perform();
+    public void testDragDrop () {
+        this.driver.get ("https://www.lambdatest.com/selenium-playground/drag-and-drop-demo");
 
-        Alert alert = driver.switchTo().alert();
+        final WebElement draggable = this.driver.findElement (By.cssSelector ("#todrag > span:nth-child(2)"));
+        final WebElement dropZone = this.driver.findElement (By.id ("mydropzone"));
 
-        String alertText = alert.getText();
-        assertEquals(alertText, "You selected a context menu");
+        final Actions actions = new Actions (this.driver);
+        actions.dragAndDrop (draggable, dropZone)
+            .build ()
+            .perform ();
 
-        alert.accept();
-        this.status = "passed";
-    }
-
-    @Test
-    public void testSliderAction() {
-        driver.get("https://www.lambdatest.com/selenium-playground/drag-drop-range-sliders-demo");
-        WebElement slider = driver.findElement(By.cssSelector("input[type='range'][value='5']"));
-        Point point = slider.getLocation();
-        int xcord = point.getX();
-        int ycord = point.getY();
-        System.out.println("x: " + xcord);
-        System.out.println("y: " + ycord);
-
-        Actions actions = new Actions(driver);
-        actions.clickAndHold(slider).moveByOffset(-145,0).release().build().perform();
-        String outputResult = driver.findElement(By.cssSelector("output#range")).getText();
-
-        assertEquals(outputResult, "20");
-        this.status = "passed";
-    }
-
-    @Test
-    public void testDragDrop() {
-        driver.get("https://www.lambdatest.com/selenium-playground/drag-and-drop-demo");
-
-        WebElement draggable = driver.findElement(By.cssSelector("#todrag > span:nth-child(2)"));
-        WebElement dropZone = driver.findElement(By.id("mydropzone"));
-
-        Actions actions = new Actions(driver);
-        actions.dragAndDrop(draggable,dropZone).build().perform();
-
-        String droppedItemList = driver.findElement(By.cssSelector("#droppedlist span")).getText();
-        assertEquals(droppedItemList, "Draggable 1");
+        final String droppedItemList = this.driver.findElement (By.cssSelector ("#droppedlist span"))
+            .getText ();
+        assertEquals (droppedItemList, "Draggable 1");
 
         this.status = "passed";
     }
 
     @Test
-    public void testDragDropApproachTwo() {
-        driver.get("https://www.lambdatest.com/selenium-playground/drag-and-drop-demo");
+    public void testDragDropApproachThree () {
+        this.driver.get ("https://www.lambdatest.com/selenium-playground/drag-and-drop-demo");
 
-        WebElement draggable = driver.findElement(By.cssSelector("#todrag > span:nth-child(2)"));
-        WebElement dropZone = driver.findElement(By.id("mydropzone"));
+        final WebElement draggable = this.driver.findElement (By.cssSelector ("#todrag > span:nth-child(2)"));
 
-        Actions actions = new Actions(driver);
-        actions.clickAndHold(draggable).moveToElement(dropZone).release().build().perform();
+        final Actions actions = new Actions (this.driver);
+        actions.dragAndDropBy (draggable, 477, 0)
+            .build ()
+            .perform ();
 
-        String droppedItemList = driver.findElement(By.cssSelector("#droppedlist span")).getText();
-        assertEquals(droppedItemList, "Draggable 1");
-
-        this.status = "passed";
-    }
-
-    @Test
-    public void testDragDropApproachThree() {
-        driver.get("https://www.lambdatest.com/selenium-playground/drag-and-drop-demo");
-
-        WebElement draggable = driver.findElement(By.cssSelector("#todrag > span:nth-child(2)"));
-
-        Actions actions = new Actions(driver);
-        actions.dragAndDropBy(draggable, 477, 0).build().perform();
-
-        String droppedItemList = driver.findElement(By.cssSelector("#droppedlist span")).getText();
-        assertEquals(droppedItemList, "Draggable 1");
+        final String droppedItemList = this.driver.findElement (By.cssSelector ("#droppedlist span"))
+            .getText ();
+        assertEquals (droppedItemList, "Draggable 1");
 
         this.status = "passed";
     }
 
     @Test
-    public void testMouseHover() {
-        driver.get("https://ecommerce-playground.lambdatest.io/");
-        WebElement myAccountLink = driver.findElement(By.cssSelector("#widget-navbar-217834 > ul > li:nth-child(6) > a"));
-        Actions actions = new Actions(driver);
-        actions.moveToElement(myAccountLink).build().perform();
+    public void testDragDropApproachTwo () {
+        this.driver.get ("https://www.lambdatest.com/selenium-playground/drag-and-drop-demo");
 
-        WebElement loginLink = driver.findElement(By.linkText("Login"));
-        loginLink.click();
+        final WebElement draggable = this.driver.findElement (By.cssSelector ("#todrag > span:nth-child(2)"));
+        final WebElement dropZone = this.driver.findElement (By.id ("mydropzone"));
 
-        List<WebElement> pageHeaders = driver.findElements(By.tagName("h2"));
-        String loginHeader = pageHeaders.get(1).getText();
-        assertEquals(loginHeader, "Returning Customer");
+        final Actions actions = new Actions (this.driver);
+        actions.clickAndHold (draggable)
+            .moveToElement (dropZone)
+            .release ()
+            .build ()
+            .perform ();
+
+        final String droppedItemList = this.driver.findElement (By.cssSelector ("#droppedlist span"))
+            .getText ();
+        assertEquals (droppedItemList, "Draggable 1");
+
+        this.status = "passed";
+    }
+
+    @Test
+    public void testMouseClickAction () {
+        this.driver.get ("https://ecommerce-playground.lambdatest.io/");
+        final WebElement searchBox = this.driver.findElement (By.name ("search"));
+        searchBox.sendKeys ("iPhone");
+
+        final WebElement searchBtn = this.driver.findElement (By.cssSelector ("button[type=submit]"));
+        searchBtn.click ();
+
+        final String pageHeader = this.driver.findElement (By.cssSelector ("#entry_212456 h1"))
+            .getText ();
+        assertEquals (pageHeader, "Search - iPhone");
+
+        this.status = "passed";
+    }
+
+    @Test
+    public void testMouseHover () {
+        this.driver.get ("https://ecommerce-playground.lambdatest.io/");
+        final WebElement myAccountLink = this.driver.findElement (
+            By.cssSelector ("#widget-navbar-217834 > ul > li:nth-child(6) > a"));
+        final Actions actions = new Actions (this.driver);
+        actions.moveToElement (myAccountLink)
+            .build ()
+            .perform ();
+
+        final WebElement loginLink = this.driver.findElement (By.linkText ("Login"));
+        loginLink.click ();
+
+        final List<WebElement> pageHeaders = this.driver.findElements (By.tagName ("h2"));
+        final String loginHeader = pageHeaders.get (1)
+            .getText ();
+        assertEquals (loginHeader, "Returning Customer");
 
         this.status = "passed";
 
     }
 
-    @AfterTest
-    public void tearDown() {
+    @Test
+    public void testSliderAction () {
+        this.driver.get ("https://www.lambdatest.com/selenium-playground/drag-drop-range-sliders-demo");
+        final WebElement slider = this.driver.findElement (By.cssSelector ("input[type='range'][value='5']"));
+        final Point point = slider.getLocation ();
+        final int xcord = point.getX ();
+        final int ycord = point.getY ();
+        System.out.println ("x: " + xcord);
+        System.out.println ("y: " + ycord);
 
-        this.driver.executeScript("lambda-status=" + this.status);
-        this.driver.quit();
+        final Actions actions = new Actions (this.driver);
+        actions.clickAndHold (slider)
+            .moveByOffset (-145, 0)
+            .release ()
+            .build ()
+            .perform ();
+        final String outputResult = this.driver.findElement (By.cssSelector ("output#range"))
+            .getText ();
+
+        assertEquals (outputResult, "20");
+        this.status = "passed";
     }
 }

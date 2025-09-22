@@ -5,25 +5,23 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.HashMap;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 public class BaseTest {
-//    protected WebDriver driver;
-    protected            RemoteWebDriver driver;
-    private static final String          LT_USERNAME   = System.getenv ("LT_USERNAME");
-    private static final String          LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
     private static final String          GRID_URL      = "@hub.lambdatest.com/wd/hub";
+    private static final String          LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
+    private static final String          LT_USERNAME   = System.getenv ("LT_USERNAME");
+    //    protected WebDriver driver;
+    protected            RemoteWebDriver driver;
 
     @BeforeClass
     public void setup () {
-//                driver = new ChromeDriver ();
+        //                driver = new ChromeDriver ();
         try {
-            this.driver = new RemoteWebDriver (new URL ("http://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
+            this.driver = new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
                 getChromeOptions ());
         } catch (final MalformedURLException e) {
             System.out.println ("Could not start the remote session on LambdaTest cloud grid");
@@ -31,6 +29,11 @@ public class BaseTest {
         this.driver.manage ()
             .timeouts ()
             .implicitlyWait (Duration.ofSeconds (10));
+    }
+
+    @AfterClass
+    public void tearDown () {
+        this.driver.quit ();
     }
 
     private ChromeOptions getChromeOptions () {
@@ -45,10 +48,5 @@ public class BaseTest {
         ltOptions.put ("plugin", "java-testNG");
         browserOptions.setCapability ("LT:Options", ltOptions);
         return browserOptions;
-    }
-
-    @AfterClass
-    public void tearDown () {
-        this.driver.quit ();
     }
 }

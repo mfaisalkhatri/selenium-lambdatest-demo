@@ -23,85 +23,88 @@ public class FileDownloadCloudTest {
 
     private RemoteWebDriver driver;
 
-    @BeforeTest
-    @Parameters({ "browser", "browserVersion", "platform" })
-    public void setup(String browser, String browserVersion, String platform) {
-        final String userName = System.getenv("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv("LT_USERNAME");
-        final String accessKey = System.getenv("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY");
-        final String gridUrl = "@hub.lambdatest.com/wd/hub";
-
-        try {
-            driver = new RemoteWebDriver(new URL("http://" + userName + ":" + accessKey + gridUrl), getChromeOptions(browserVersion, platform));
-
-        } catch (final MalformedURLException e) {
-            throw new Error("Could not start the chrome browser on LambdaTest cloud grid");
-        }
-        driver.setFileDetector(new LocalFileDetector());
-        driver.manage()
-            .timeouts()
-            .implicitlyWait(Duration.ofSeconds(20));
-    }
-
-    @Test
-    public void testFileDownload() throws InterruptedException {
-        driver.get("https://www.lambdatest.com/selenium-playground/download-file-demo");
-        WebElement downloadBtn = driver.findElement(By.cssSelector(".btn-primary"));
-        downloadBtn.click();
-        Thread.sleep(5000);
-        assertTrue(checkFileDownload("LambdaTest.pdf"));
-    }
-
-    public boolean checkFileDownload(final String downloadedFileName) {
-        File directory = new File(String.valueOf(Paths.get(System.getProperty("user.home"), "Downloads")));
-        String[] fileList = directory.list();
+    public boolean checkFileDownload (final String downloadedFileName) {
+        final File directory = new File (String.valueOf (Paths.get (System.getProperty ("user.home"), "Downloads")));
+        final String[] fileList = directory.list ();
 
         int flag = 0;
         if (fileList != null) {
-            for (String fileName : fileList) {
-                if (fileName.equalsIgnoreCase(downloadedFileName)) {
-                    System.out.println("Downloaded file Found: " + directory + " " + fileName);
+            for (final String fileName : fileList) {
+                if (fileName.equalsIgnoreCase (downloadedFileName)) {
+                    System.out.println ("Downloaded file Found: " + directory + " " + fileName);
                     flag = 1;
                 }
             }
         } else {
-            System.out.println("Downloads directory is Empty!" + directory);
+            System.out.println ("Downloads directory is Empty!" + directory);
             return false;
         }
         if (flag == 0) {
-            System.out.println("Error: Downloaded File not found in the path!!" + directory);
+            System.out.println ("Error: Downloaded File not found in the path!!" + directory);
             return false;
         }
         return true;
     }
 
+    @BeforeTest
+    @Parameters ({ "browser", "browserVersion", "platform" })
+    public void setup (final String browser, final String browserVersion, final String platform) {
+        final String userName = System.getenv ("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv ("LT_USERNAME");
+        final String accessKey = System.getenv ("LT_ACCESS_KEY") == null
+                                 ? "LT_ACCESS_KEY"
+                                 : System.getenv ("LT_ACCESS_KEY");
+        final String gridUrl = "@hub.lambdatest.com/wd/hub";
 
-    private ChromeOptions getChromeOptions(String browserVersion, String platform) {
-        var chromePrefs = new HashMap<String, Object>();
-        chromePrefs.put("download.prompt_for_download", "false");
-        chromePrefs.put("download.default_directory", String.valueOf(Paths.get(System.getProperty("user.home"), "Downloads")));
+        try {
+            this.driver = new RemoteWebDriver (new URL ("https://" + userName + ":" + accessKey + gridUrl),
+                getChromeOptions (browserVersion, platform));
 
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.setExperimentalOption("prefs", chromePrefs);
-        chromeOptions.setPlatformName(platform);
-        chromeOptions.setBrowserVersion(browserVersion);
-        chromeOptions.setCapability("LT:Options", getLtOptions());
+        } catch (final MalformedURLException e) {
+            throw new Error ("Could not start the chrome browser on LambdaTest cloud grid");
+        }
+        this.driver.setFileDetector (new LocalFileDetector ());
+        this.driver.manage ()
+            .timeouts ()
+            .implicitlyWait (Duration.ofSeconds (20));
+    }
+
+    @AfterTest
+    public void tearDown () {
+        this.driver.quit ();
+    }
+
+    @Test
+    public void testFileDownload () throws InterruptedException {
+        this.driver.get ("https://www.lambdatest.com/selenium-playground/download-file-demo");
+        final WebElement downloadBtn = this.driver.findElement (By.cssSelector (".btn-primary"));
+        downloadBtn.click ();
+        Thread.sleep (5000);
+        assertTrue (checkFileDownload ("LambdaTest.pdf"));
+    }
+
+    private ChromeOptions getChromeOptions (final String browserVersion, final String platform) {
+        final var chromePrefs = new HashMap<String, Object> ();
+        chromePrefs.put ("download.prompt_for_download", "false");
+        chromePrefs.put ("download.default_directory",
+            String.valueOf (Paths.get (System.getProperty ("user.home"), "Downloads")));
+
+        final ChromeOptions chromeOptions = new ChromeOptions ();
+        chromeOptions.setExperimentalOption ("prefs", chromePrefs);
+        chromeOptions.setPlatformName (platform);
+        chromeOptions.setBrowserVersion (browserVersion);
+        chromeOptions.setCapability ("LT:Options", getLtOptions ());
 
         return chromeOptions;
     }
 
-    private HashMap<String, Object> getLtOptions() {
-        final var ltOptions = new HashMap<String, Object>();
-        ltOptions.put("project", "LambdaTest Selenium Playground");
-        ltOptions.put("build", "File Download Web Page");
-        ltOptions.put("name", "File download using Chrome");
-        ltOptions.put("w3c", true);
-        ltOptions.put("visual", true);
-        ltOptions.put("plugin", "java-testNG");
+    private HashMap<String, Object> getLtOptions () {
+        final var ltOptions = new HashMap<String, Object> ();
+        ltOptions.put ("project", "LambdaTest Selenium Playground");
+        ltOptions.put ("build", "File Download Web Page");
+        ltOptions.put ("name", "File download using Chrome");
+        ltOptions.put ("w3c", true);
+        ltOptions.put ("visual", true);
+        ltOptions.put ("plugin", "java-testNG");
         return ltOptions;
-    }
-
-    @AfterTest
-    public void tearDown() {
-        driver.quit();
     }
 }
