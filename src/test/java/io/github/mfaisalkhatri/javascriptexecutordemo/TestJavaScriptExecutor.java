@@ -18,6 +18,10 @@ import org.testng.annotations.Test;
 
 public class TestJavaScriptExecutor {
 
+    private static final String GRID_URL      = "@hub.lambdatest.com/wd/hub";
+    private static final String LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
+    private static final String LT_USERNAME   = System.getenv ("LT_USERNAME");
+
     private RemoteWebDriver driver;
     private String          status = "failed";
 
@@ -39,13 +43,8 @@ public class TestJavaScriptExecutor {
 
     @BeforeTest
     public void setup () {
-        final String userName = System.getenv ("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv ("LT_USERNAME");
-        final String accessKey = System.getenv ("LT_ACCESS_KEY") == null
-                                 ? "LT_ACCESS_KEY"
-                                 : System.getenv ("LT_ACCESS_KEY");
-        final String gridUrl = "@hub.lambdatest.com/wd/hub";
         try {
-            this.driver = new RemoteWebDriver (new URL ("https://" + userName + ":" + accessKey + gridUrl),
+            this.driver = new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
                 getChromeOptions ());
         } catch (final MalformedURLException e) {
             System.out.println ("Could not start the remote session on LambdaTest cloud grid");
@@ -68,13 +67,11 @@ public class TestJavaScriptExecutor {
         js.executeAsyncScript (
             "var callback = arguments[arguments.length - 1];" + "window.scrollBy(0,document.body.scrollHeight); + callback()");
 
-        final String fromTheBlogText = this.driver.findElement (By.cssSelector ("#entry_217991 > h3"))
+        final String fromTheBlogText = this.driver.findElement (
+                By.xpath ("//h3[normalize-space(text())='From The Blog']"))
             .getText ();
         assertEquals (fromTheBlogText, "FROM THE BLOG");
         this.status = "passed";
-
-        final WebElement element = this.driver.findElement (By.id ("shadowroot"));
-        js.executeScript ("return arguments[0].shadowRoot", element);
     }
 
     @Test
