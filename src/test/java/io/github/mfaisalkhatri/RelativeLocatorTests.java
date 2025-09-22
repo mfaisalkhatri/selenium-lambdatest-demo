@@ -17,10 +17,11 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class RelativeLocatorTests {
-    String    accesskey = System.getenv ("LT_ACCESS_KEY") == null ? "LT_ACCESS_KEY" : System.getenv ("LT_ACCESS_KEY");
-    WebDriver driver;
-    String    gridURL   = "@hub.lambdatest.com/wd/hub";
-    String    username  = System.getenv ("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv ("LT_USERNAME");
+    private static final String GRID_URL      = "@hub.lambdatest.com/wd/hub";
+    private static final String LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
+    private static final String LT_USERNAME   = System.getenv ("LT_USERNAME");
+
+    private WebDriver driver;
 
     @BeforeTest
     public void setup () throws MalformedURLException {
@@ -34,7 +35,7 @@ public class RelativeLocatorTests {
         ltOptions.put ("build", "Demonstration: Selenium Locator Demo on LambdaTest");
         browserOptions.setCapability ("LT:Options", ltOptions);
 
-        this.driver = new RemoteWebDriver (new URL ("https://" + this.username + ":" + this.accesskey + this.gridURL),
+        this.driver = new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
             browserOptions);
     }
 
