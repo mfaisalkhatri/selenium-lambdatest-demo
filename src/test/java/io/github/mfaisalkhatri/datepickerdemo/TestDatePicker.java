@@ -19,6 +19,10 @@ import org.testng.annotations.Test;
 
 public class TestDatePicker {
 
+    private static final String GRID_URL      = "@hub.lambdatest.com/wd/hub";
+    private static final String LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
+    private static final String LT_USERNAME   = System.getenv ("LT_USERNAME");
+
     private RemoteWebDriver driver;
     private String          status = "failed";
 
@@ -42,13 +46,8 @@ public class TestDatePicker {
 
     @BeforeTest
     public void setup () {
-        final String userName = System.getenv ("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv ("LT_USERNAME");
-        final String accessKey = System.getenv ("LT_ACCESS_KEY") == null
-                                 ? "LT_ACCESS_KEY"
-                                 : System.getenv ("LT_ACCESS_KEY");
-        final String gridUrl = "@hub.lambdatest.com/wd/hub";
         try {
-            this.driver = new RemoteWebDriver (new URL ("https://" + userName + ":" + accessKey + gridUrl),
+            this.driver = new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
                 getChromeOptions ());
         } catch (final MalformedURLException e) {
             System.out.println ("Could not start the remote session on LambdaTest cloud grid");
@@ -100,10 +99,10 @@ public class TestDatePicker {
 
         final JQueryDatePickerPage jQueryDatePickerPage = new JQueryDatePickerPage (this.driver);
         jQueryDatePickerPage.selectFromDate ("Oct", "19");
-        assertEquals (jQueryDatePickerPage.getFromDateValue (), "10/19/2024");
+        assertEquals (jQueryDatePickerPage.getFromDateValue (), "10/19/2025");
 
         jQueryDatePickerPage.selectToDate ("Dec", "9");
-        assertEquals (jQueryDatePickerPage.getToDateValue (), "12/09/2024");
+        assertEquals (jQueryDatePickerPage.getToDateValue (), "12/09/2025");
         this.status = "passed";
     }
 
@@ -116,6 +115,5 @@ public class TestDatePicker {
             .getAttribute ("value");
         assertEquals (fromDateValue, "09/11/2024");
         this.status = "passed";
-
     }
 }
