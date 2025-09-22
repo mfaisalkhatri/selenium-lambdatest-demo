@@ -18,6 +18,10 @@ import org.testng.annotations.Test;
 
 public class SeleniumECommerceTests {
 
+    private static final String GRID_URL      = "@hub.lambdatest.com/wd/hub";
+    private static final String LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
+    private static final String LT_USERNAME   = System.getenv ("LT_USERNAME");
+
     RemoteWebDriver driver;
     private String status = "failed";
 
@@ -41,14 +45,8 @@ public class SeleniumECommerceTests {
 
     @BeforeTest
     public void setup () {
-        final String userName = System.getenv ("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv ("LT_USERNAME");
-        final String accessKey = System.getenv ("LT_ACCESS_KEY") == null
-                                 ? "LT_ACCESS_KEY"
-                                 : System.getenv ("LT_ACCESS_KEY");
-        final String gridUrl = "@hub.lambdatest.com/wd/hub";
-
         try {
-            this.driver = new RemoteWebDriver (new URL ("https://" + userName + ":" + accessKey + gridUrl),
+            this.driver = new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
                 getChromeOptions ());
 
         } catch (final MalformedURLException e) {
@@ -72,7 +70,8 @@ public class SeleniumECommerceTests {
         this.driver.get ("https://ecommerce-playground.lambdatest.io/");
         final WebElement shopByCategoryMenu = this.driver.findElement (By.cssSelector ("div.shop-by-category a"));
         shopByCategoryMenu.click ();
-        final List<WebElement> shoppingLinks = this.driver.findElements (By.cssSelector ("#widget-navbar-217841 ul li a"));
+        final List<WebElement> shoppingLinks = this.driver.findElements (
+            By.cssSelector ("#widget-navbar-217841 ul li a"));
 
         for (int i = 0; i <= shoppingLinks.size (); i++) {
 
