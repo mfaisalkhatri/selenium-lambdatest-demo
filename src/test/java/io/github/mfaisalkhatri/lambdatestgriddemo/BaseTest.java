@@ -15,7 +15,10 @@ import org.testng.annotations.Parameters;
 
 public class BaseTest {
 
-    private static final ThreadLocal<RemoteWebDriver> DRIVER = new ThreadLocal<> ();
+    private static final ThreadLocal<RemoteWebDriver> DRIVER        = new ThreadLocal<> ();
+    private static final String                       GRID_URL      = "@hub.lambdatest.com/wd/hub";
+    private static final String                       LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
+    private static final String                       LT_USERNAME   = System.getenv ("LT_USERNAME");
 
     public RemoteWebDriver getDriver () {
         return DRIVER.get ();
@@ -24,15 +27,9 @@ public class BaseTest {
     @BeforeTest
     @Parameters ({ "browser", "browserVersion", "platform" })
     public void setup (final String browser, final String browserVersion, final String platform) {
-        final String userName = System.getenv ("LT_USERNAME") == null ? "LT_USERNAME" : System.getenv ("LT_USERNAME");
-        final String accessKey = System.getenv ("LT_ACCESS_KEY") == null
-                                 ? "LT_ACCESS_KEY"
-                                 : System.getenv ("LT_ACCESS_KEY");
-        final String gridUrl = "@hub.lambdatest.com/wd/hub";
-
         if (browser.equalsIgnoreCase ("chrome")) {
             try {
-                setDriver (new RemoteWebDriver (new URL ("https://" + userName + ":" + accessKey + gridUrl),
+                setDriver (new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
                     getChromeOptions (browserVersion, platform)));
 
             } catch (final MalformedURLException e) {
@@ -40,7 +37,7 @@ public class BaseTest {
             }
         } else if (browser.equalsIgnoreCase ("firefox")) {
             try {
-                setDriver (new RemoteWebDriver (new URL ("http://" + userName + ":" + accessKey + gridUrl),
+                setDriver (new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
                     getFirefoxOptions (browserVersion, platform)));
 
             } catch (final MalformedURLException e) {
@@ -48,7 +45,7 @@ public class BaseTest {
             }
         } else if (browser.equalsIgnoreCase ("edge")) {
             try {
-                setDriver (new RemoteWebDriver (new URL ("http://" + userName + ":" + accessKey + gridUrl),
+                setDriver (new RemoteWebDriver (new URL ("https://" + LT_USERNAME + ":" + LT_ACCESS_KEY + GRID_URL),
                     getEdgeOptions (browserVersion, platform)));
 
             } catch (final MalformedURLException e) {
