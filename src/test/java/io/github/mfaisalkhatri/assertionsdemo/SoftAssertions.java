@@ -62,7 +62,7 @@ public class SoftAssertions {
         final String pageHeader = this.driver.findElement (By.tagName ("h1"))
             .getText ();
         final SoftAssert softAssert = new SoftAssert ();
-        softAssert.assertEquals (pageHeader, "Radio button demo page");
+        softAssert.assertEquals (pageHeader, "Radio button demo");
 
         final WebElement maleRadioBtn = this.driver.findElement (
             By.cssSelector ("input[name='optradio'][value='Male']"));
