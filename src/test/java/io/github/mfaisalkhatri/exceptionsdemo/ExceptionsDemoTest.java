@@ -19,11 +19,10 @@ import org.testng.annotations.Test;
 
 public class ExceptionsDemoTest {
 
-    private static final String GRID_URL      = "@hub.lambdatest.com/wd/hub";
-    private static final String LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
-    private static final String LT_USERNAME   = System.getenv ("LT_USERNAME");
-
-    private WebDriver driver;
+    private static final String    GRID_URL      = "@hub.lambdatest.com/wd/hub";
+    private static final String    LT_ACCESS_KEY = System.getenv ("LT_ACCESS_KEY");
+    private static final String    LT_USERNAME   = System.getenv ("LT_USERNAME");
+    private              WebDriver driver;
 
     public ChromeOptions getChromeOptions () {
         final var browserOptions = new ChromeOptions ();
