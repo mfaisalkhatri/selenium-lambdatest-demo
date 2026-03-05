@@ -8,8 +8,9 @@ import org.opencv.core.Scalar;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
-public class ImageComparisionTest {
+public class ImageComparisonTest {
     static {
+        // Update the path where jar file is generated on your machine
         System.load ("/Users/faisalkhatri/Github/opencv/build/lib/libopencv_java4130.dylib");
     }
 
