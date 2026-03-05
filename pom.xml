@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -11,11 +11,12 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <selenium-java.version>4.24.0</selenium-java.version>
-        <testng.version>7.10.2</testng.version>
-        <webdrivermanager.version>5.9.2</webdrivermanager.version>
-        <datafaker.version>2.3.1</datafaker.version>
+        <selenium-java.version>4.41.0</selenium-java.version>
+        <testng.version>7.12.0</testng.version>
+        <webdrivermanager.version>6.3.3</webdrivermanager.version>
+        <datafaker.version>2.5.4</datafaker.version>
         <ashot.version>1.5.4</ashot.version>
+        <opencv.version>4.12.0</opencv.version>
         <maven.compiler.version>3.13.0</maven.compiler.version>
         <surefire-version>3.3.1</surefire-version>
         <java.release.version>17</java.release.version>
@@ -36,26 +37,27 @@
             <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>${webdrivermanager.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/net.datafaker/datafaker -->
         <dependency>
             <groupId>net.datafaker</groupId>
             <artifactId>datafaker</artifactId>
             <version>${datafaker.version}</version>
         </dependency>
-        <!--https://mvnrepository.com/artifact/ru.yandex.qatools.ashot/ashot-->
         <dependency>
             <groupId>ru.yandex.qatools.ashot</groupId>
             <artifactId>ashot</artifactId>
             <version>${ashot.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.opencv</groupId>
+            <artifactId>opencv</artifactId>
+            <version>${opencv.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
