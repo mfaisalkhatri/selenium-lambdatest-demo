@@ -1,4 +1,4 @@
-package io.github.mfaisalkhatri.visualtestopencv;
+package io.github.mfaisalkhatri.seleniumaidemo.visualtestopencv;
 
 import java.io.File;
 import java.io.IOException;

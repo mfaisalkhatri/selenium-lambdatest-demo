@@ -1,4 +1,4 @@
-package io.github.mfaisalkhatri.testdatagenerator;
+package io.github.mfaisalkhatri.seleniumaidemo.testdatagenerator;
 
 import net.datafaker.Faker;
 

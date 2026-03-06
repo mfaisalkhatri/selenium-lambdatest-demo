@@ -1,4 +1,4 @@
-package io.github.mfaisalkhatri.autohealing;
+package io.github.mfaisalkhatri.seleniumaidemo.autohealing;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -46,7 +46,6 @@ public class AutoHealingTests {
         } catch (final MalformedURLException e) {
             System.out.println ("Could not start the remote session on LambdaTest cloud grid");
         }
-        // this.driver = new ChromeDriver ();
         this.driver.manage ()
             .timeouts ()
             .implicitlyWait (Duration.ofSeconds (20));
